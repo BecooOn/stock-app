@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 const useApiRequest = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { token } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth); //* global alandan token bilgisini alıyoruz
 
   const login = async (userData) => {
     dispatch(fetchStart()); //? pending işlemi için dispatch yayınladık, AuthSlice içerisinde bu fonksiyonu kullanacağız
@@ -56,7 +56,7 @@ const useApiRequest = () => {
     dispatch(fetchStart());
     try {
       await axios(`${process.env.REACT_APP_BASE_URL}/auth/logout`, {
-        headers: { Authorization: `Token ${token}` },
+        headers: { Authorization: `Token ${token}` }, //? global alandan aldığımız token bilgisini silmek için kullanıyoruz.
       });
       dispatch(logoutSuccess());
       toastSuccessNotify("Logout işlemi başarılı");
