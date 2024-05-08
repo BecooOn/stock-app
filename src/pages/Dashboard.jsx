@@ -1,10 +1,11 @@
+import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
+
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -20,8 +21,9 @@ function Dashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
-  const { logout } = useApiRequest(); //? api request fonksiyonunu custom hook alanından çağırıyoruz
-  const { user } = useSelector((state) => state.auth); //? user bilgisini global alanından alıyoruz
+
+  const { user } = useSelector((state) => state.auth);
+  const { logout } = useApiRequest();
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -83,7 +85,6 @@ function Dashboard(props) {
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* //* Bağlantıların SEO kopyalarını önlemek için uygulama js ile değiştirilebilir. */}
         <Drawer
           container={container}
           variant="temporary"

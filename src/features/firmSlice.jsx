@@ -15,11 +15,10 @@ const firmSlice = createSlice({
       state.loading = true;
     },
     firmSuccess: (state, { payload }) => {
-      state.firms = payload.data;
       state.loading = false;
+      state.firms = payload.data;
       state.error = false;
     },
-
     fetchFail: (state) => {
       //! firm rejected için
       state.loading = false;
