@@ -79,7 +79,7 @@ const Login = () => {
               actions.setSubmitting(false); //? actions içerisinde isSubmitting prop'u var, submit yapınca bu true olur ve submit butonuna kullanıcı tekrar tekrar basmasın diye submit işlemi bitene kadar butonu disablled yapar.
               //*navigate
             }}
-            //? component={} prop'u TextField'leri component haline getirip buraya yazmamızı sağlar;ancak şimdi bu kullanımı yapmayacağız
+            //? component={} prop'u TextField'leri component haline getirip buraya yazmamızı ve aşağıdaki destr olarak gönderdiklerimizi prop içerisinde kod kalabalığı yapmadan göndermemizi sağlar;ancak şimdi bu kullanımı yapmayacağız
           >
             {(
               {

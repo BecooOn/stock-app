@@ -7,6 +7,7 @@ import { Formik } from "formik";
 import FirmModalForm, { firmSchema } from "./FirmModalForm";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import useStockRequest from "../services/useStockRequest";
 
 const style = {
   position: "absolute",
@@ -24,6 +25,7 @@ const FirmModal = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const { createData } = useStockRequest();
 
   return (
     <div>
@@ -55,20 +57,24 @@ const FirmModal = () => {
               right: 8,
             }}
           >
-            <IconButton aria-label="close" onClick={() => setOpen(false)} sx={{"&:hover": { color: "red" }}}>
+            <IconButton
+              aria-label="close"
+              onClick={() => setOpen(false)}
+              sx={{ "&:hover": { color: "red" } }}
+            >
               <CloseIcon />
             </IconButton>
           </Box>
           <Formik
             initialValues={{
-              firmName: "",
-              firmPhone: "",
-              firmAddress: "",
-              firmImg: "",
+              name: "",
+              phone: "",
+              address: "",
+              image: "",
             }}
             validationSchema={firmSchema}
             onSubmit={(values, actions) => {
-              //   firms(values);
+              createData("firms",values);
               actions.resetForm();
               actions.setSubmitting(false);
             }}

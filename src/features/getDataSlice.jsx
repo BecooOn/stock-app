@@ -2,21 +2,26 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   firms: [],
+  products: [],
+  brands: [],
+  sales: [],
+  purchases: [],
+  categories: [],
   loading: false,
   error: false,
 };
 
-const firmSlice = createSlice({
-  name: "firm",
+const getDataSlice = createSlice({
+  name: "getDatas",
   initialState,
   reducers: {
     fetchStart: (state) => {
       //! firm pending için
       state.loading = true;
     },
-    firmSuccess: (state, { payload }) => {
+    getDataSuccess: (state, { payload }) => {
       state.loading = false;
-      state.firms = payload.data;
+      state[payload.key] = payload.data;
       state.error = false;
     },
     fetchFail: (state) => {
@@ -27,5 +32,5 @@ const firmSlice = createSlice({
   },
 });
 
-export const { fetchStart, firmSuccess, fetchFail } = firmSlice.actions;
-export default firmSlice.reducer;
+export const { fetchStart, getDataSuccess, fetchFail } = getDataSlice.actions;
+export default getDataSlice.reducer;

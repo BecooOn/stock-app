@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../features/authSlice";
-import firmReducer from "../features/firmSlice";
+import getDataReducer from "../features/getDataSlice";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    firms: firmReducer
+    getDatas: getDataReducer //*tüm veriler için tek reducer
   },
-  devTools: process.env.NODE_ENV !== "production", //! production da redux kapatılsın olsun diye
+  devTools: process.env.NODE_ENV !== "production", //! production da redux kapalı olması için
 });
 export default store;

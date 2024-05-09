@@ -1434,6 +1434,11 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.2.tgz#d8bae93ac8b815b2bd7a98078cf91e2724ef11e5"
   integrity sha512-J4yDIIthosAsRZ5CPYP/jQvUAQtlZTTD/4suA08/FEnlxqW3sKS9iAhgsa9VYLZ6vDHn/ixJgIqRQPotoBjxIw==
 
+"@fontsource/anta@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@fontsource/anta/-/anta-5.0.2.tgz#bcc216fe513de1a8adb876fdb0fb96dc3728c80e"
+  integrity sha512-3O9+k0uSA0+GKwRL3eB7G5OgbpjJT15KZfJSxa5UvgIxl2jo5PA7gaRfgWs5tY+LlCqqM9aF6x3bM0lu/NFz9g==
+
 "@humanwhocodes/config-array@^0.11.14":
   version "0.11.14"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.14.tgz#d78e481a039f7566ecc9660b4ea7fe6b1fec442b"

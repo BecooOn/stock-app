@@ -4,6 +4,7 @@ import { grey, blueGrey } from "@mui/material/colors";
 import { Provider } from "react-redux";
 import store from "./app/store";
 import { ToastContainer } from "react-toastify";
+import { Anta } from '@fontsource/anta'; 
 
 function App() {
   const theme = createTheme({
@@ -15,6 +16,10 @@ function App() {
         main: blueGrey["900"],
       },
     },
+    typography: {
+      fontFamily: 'Anta, sans-serif', 
+      fontSize: 18,
+    }
   });
   return (
     <>

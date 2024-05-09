@@ -1,17 +1,17 @@
-import Container from "@mui/material/Container"
-import Typography from "@mui/material/Typography"
-import Avatar from "@mui/material/Avatar"
-import LockIcon from "@mui/icons-material/Lock"
-import image from "../assets/result.svg"
-import Grid from "@mui/material/Grid"
-import Box from "@mui/material/Box"
-import { Link } from "react-router-dom"
-import RegisterForm, { registerSchema } from "../components/RegisterForm"
-import { Formik } from "formik"
-import useApiRequest from "../services/useApiRequest"
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar";
+import LockIcon from "@mui/icons-material/Lock";
+import image from "../assets/result.svg";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import { Link } from "react-router-dom";
+import RegisterForm, { registerSchema } from "../components/RegisterForm";
+import { Formik } from "formik";
+import useApiRequest from "../services/useApiRequest";
 
 const Register = () => {
-  const { register } = useApiRequest()
+  const { register } = useApiRequest();
 
   return (
     <Container maxWidth="lg">
@@ -61,11 +61,12 @@ const Register = () => {
             }}
             validationSchema={registerSchema}
             onSubmit={(values, actions) => {
-              register(values)
-              actions.resetForm()
-              actions.setSubmitting(false)
+              register(values);
+              actions.resetForm();
+              actions.setSubmitting(false);
             }}
             component={(props) => <RegisterForm {...props} />}
+            //* loginde componenti kullanmamıştık, burada component kullanımını görüyoruz
           ></Formik>
 
           <Box sx={{ textAlign: "center", mt: 2 }}>
@@ -80,7 +81,7 @@ const Register = () => {
         </Grid>
       </Grid>
     </Container>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;
