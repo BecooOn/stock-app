@@ -16,14 +16,15 @@ import { useSelector } from "react-redux";
 import useStockRequest from "../services/useStockRequest";
 import loadingGif from "../assets/loading.gif";
 import FirmModal from "../components/FirmModal";
-import { ToastContainer } from "react-toastify";
 import UpdateFirmModal from "../components/UpdateFirmModal";
+import TextField from "@mui/material/TextField";
 
 const Firms = () => {
   const { getDatas, deleteData } = useStockRequest();
-  const { firms, loading } = useSelector((state) => state.getDatas);
+  const { firms: allFirms, loading } = useSelector((state) => state.getDatas);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [updateId, setUpdateId] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   // console.log(firms);
 
@@ -31,6 +32,15 @@ const Firms = () => {
     //? Firma sayfası açıldığında componentDidMount ta firmaları çağırıyoruz. endpoint belirterek custom hook a gönderiyoruz
     getDatas("firms"); //? firmaları getiren fonksiyon, bu fonksiyon birden çok yerde kullanılacağı için ve state güncellemeleri heryerden olacağı için custom hook içinde bu fonksiyonu oluşturuyoruz.
   }, []);
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value); //* Arama terimini güncellemek için
+  };
+
+  //* Filtrelenmiş firmaları almak için
+  const filteredFirms = allFirms.filter((firm) =>
+    firm.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleUpdateModal = (value, id) => {
     setOpenUpdateModal(value);
@@ -49,20 +59,30 @@ const Firms = () => {
           right: 20,
         }}
       >
-        <Tooltip title={`Number of Firms: ${firms ? firms.length : 0}`} arrow>
+        <Tooltip
+          title={`Number of Firms: ${allFirms ? allFirms.length : 0}`}
+          arrow
+        >
           {/* //* Tooltip'e yalnızca bir öğe veya bileşen verilebilir. Aşağıdaki kod bloğu içerisindeki tek öğe Box'tır; çünkü box kapsayıcı olarak kullanılmıştır. Tooltip, kullanıcı bir bileşenin üzerine geldiğinde ek bilgi sağlamak için kullanılan bir araçtır.  */}
           <Box>
             <StoreIcon />
             <sup
               style={{ color: "orange", fontWeight: "bold", fontSize: "20px" }}
             >
-              {`${firms ? firms.length : 0}`}
+              {`${allFirms ? allFirms.length : 0}`}
             </sup>
           </Box>
         </Tooltip>
       </Box>
-
-      <ToastContainer />
+      <Box sx={{ textAlign: "center", margin: "20px" }}>
+        <TextField
+          label="Search Firm"
+          variant="standard"
+          onChange={handleSearch}
+          placeholder="Search Firm..."
+          sx={{ borderBottom: "3px solid black"}}
+        />
+      </Box>
       {loading ? (
         <Box
           sx={{
@@ -85,7 +105,7 @@ const Firms = () => {
             justifyContent="space-evenly"
             flexWrap="wrap"
           >
-            {firms?.map((item) => (
+            {filteredFirms?.map((item) => (
               <Card
                 key={item._id}
                 sx={{
