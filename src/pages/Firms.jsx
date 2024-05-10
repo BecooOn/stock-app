@@ -25,6 +25,7 @@ const Firms = () => {
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [updateId, setUpdateId] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [focused, setFocused] = useState(false); //* Arama yapmak için oluşturduğum TextField alanında label ve placeholder hareketleri için
 
   // console.log(firms);
 
@@ -46,33 +47,47 @@ const Firms = () => {
     setOpenUpdateModal(value); //? value varsa true olur
     setUpdateId(id);
   };
+  const handleFocus = () => {
+    setFocused(true);
+  };
+
+  const handleBlur = () => {
+    setFocused(false);
+  };
 
   return (
     <Box sx={{ position: "relative" }}>
-      <h1 style={{ textAlign: "center", borderBottom: "2px solid black" }}>
-        Firms
-      </h1>
       <Box
         sx={{
-          position: "absolute",
-          top: 8,
-          right: 20,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          borderBottom: "4px solid black",
+          p: 0,
         }}
       >
-        <Tooltip
-          title={`Number of Firms: ${allFirms ? allFirms.length : 0}`}
-          arrow
-        >
-          {/* //* Tooltip'e yalnızca bir öğe veya bileşen verilebilir. Aşağıdaki kod bloğu içerisindeki tek öğe Box'tır; çünkü box kapsayıcı olarak kullanılmıştır. Tooltip, kullanıcı bir bileşenin üzerine geldiğinde ek bilgi sağlamak için kullanılan bir araçtır.  */}
-          <Box>
-            <StoreIcon />
-            <sup
-              style={{ color: "orange", fontWeight: "bold", fontSize: "20px" }}
-            >
-              {`${allFirms ? allFirms.length : 0}`}
-            </sup>
-          </Box>
-        </Tooltip>
+        <div style={{ width: "120px" }}></div>
+        <h1 style={{ textAlign: "center" }}>Firms</h1>
+        <Box>
+          <Tooltip
+            title={`Number of Firms: ${allFirms ? allFirms.length : 0}`}
+            arrow
+          >
+            {/* //* Tooltip'e yalnızca bir öğe veya bileşen verilebilir. Aşağıdaki kod bloğu içerisindeki tek öğe Box'tır; çünkü box kapsayıcı olarak kullanılmıştır. Tooltip, kullanıcı bir bileşenin üzerine geldiğinde ek bilgi sağlamak için kullanılan bir araçtır.  */}
+            <Box>
+              <StoreIcon />
+              <sup
+                style={{
+                  color: "orange",
+                  fontWeight: "bold",
+                  fontSize: "20px",
+                }}
+              >
+                {`${allFirms ? allFirms.length : 0}`}
+              </sup>
+            </Box>
+          </Tooltip>
+        </Box>
       </Box>
       <Box sx={{ textAlign: "center", margin: "20px" }}>
         <TextField
@@ -80,7 +95,18 @@ const Firms = () => {
           variant="standard"
           type="search"
           onChange={handleSearch}
-          placeholder="Search Firm..."
+          placeholder={focused ? "Search Firm..." : ""}
+          InputLabelProps={{
+            sx: {
+              transform: focused
+                ? "translate(0%, -50%)"
+                : "translate(50%, 50%)",
+              transition: "all 0.3s",
+              color: focused ? "#000" : "rgba(0, 0, 0, 0.54)",
+            },
+          }}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           sx={{ borderBottom: "3px solid black" }}
         />
       </Box>

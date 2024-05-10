@@ -34,7 +34,7 @@ const FirmModal = () => {
         variant="contained"
         sx={{
           position: "absolute",
-          top: 5,
+          top: 35,
           left: 0,
           "&:hover": {
             backgroundColor: "red",
@@ -74,7 +74,7 @@ const FirmModal = () => {
             }}
             validationSchema={firmSchema}
             onSubmit={(values, actions) => {
-              createData("firms",values); //? firmaları oluşturmak için useStockRequest içindeki createData fonksiyonuna verilerimizi gönderiyoruz
+              createData("firms", values); //? firmaları oluşturmak için useStockRequest içindeki createData fonksiyonuna verilerimizi gönderiyoruz
               actions.resetForm();
               actions.setSubmitting(false);
             }}

@@ -25,6 +25,8 @@ const Brands = () => {
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [updateId, setUpdateId] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [focused, setFocused] = useState(false);
+
   useEffect(() => {
     //? Brand sayfası açıldığında componentDidMount ta brandları çağırıyoruz. endpoint belirterek custom hook a gönderiyoruz
     getDatas("brands"); //? brandları getiren fonksiyon, bu fonksiyon birden çok yerde kullanılacağı için ve state güncellemeleri heryerden olacağı için custom hook içinde bu fonksiyonu oluşturuyoruz.
@@ -44,31 +46,46 @@ const Brands = () => {
     setUpdateId(id);
   };
 
+  const handleFocus = () => {
+    setFocused(true);
+  };
+
+  const handleBlur = () => {
+    setFocused(false);
+  };
+
   return (
     <Box sx={{ position: "relative" }}>
-      <h1 style={{ textAlign: "center", borderBottom: "2px solid black" }}>
-        Brands
-      </h1>
       <Box
         sx={{
-          position: "absolute",
-          top: 8,
-          right: 20,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          borderBottom: "4px solid black",
+          p: 0,
         }}
       >
-        <Tooltip
-          title={`Number of Brands: ${allBrands ? allBrands.length : 0}`}
-          arrow
-        >
-          <Box>
-            <StoreIcon />
-            <sup
-              style={{ color: "orange", fontWeight: "bold", fontSize: "20px" }}
-            >
-              {`${allBrands ? allBrands.length : 0}`}
-            </sup>
-          </Box>
-        </Tooltip>
+        <div style={{ width: "120px" }}></div>
+        <h1 style={{ textAlign: "center" }}>Brands</h1>
+        <Box>
+          <Tooltip
+            title={`Number of Firms: ${allBrands ? allBrands.length : 0}`}
+            arrow
+          >
+            <Box>
+              <StoreIcon />
+              <sup
+                style={{
+                  color: "orange",
+                  fontWeight: "bold",
+                  fontSize: "20px",
+                }}
+              >
+                {`${allBrands ? allBrands.length : 0}`}
+              </sup>
+            </Box>
+          </Tooltip>
+        </Box>
       </Box>
       <Box sx={{ textAlign: "center", margin: "20px" }}>
         <TextField
@@ -76,7 +93,17 @@ const Brands = () => {
           variant="standard"
           type="search"
           onChange={handleSearch}
-          placeholder="Search Brand..."
+          placeholder={focused ? "Search Brand..." : ""}
+          InputLabelProps={{
+            sx: {
+              transform: focused
+                ? "translate(0%, -50%)"
+                : "translate(50%, 50%)",
+              color: focused ? "#000" : "rgba(0, 0, 0, 0.54)",
+            },
+          }}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           sx={{ borderBottom: "3px solid black" }}
         />
       </Box>

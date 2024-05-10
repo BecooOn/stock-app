@@ -14,17 +14,27 @@ import { useSelector } from "react-redux";
 import useApiRequest from "../services/useApiRequest";
 import MenuListComp from "../components/MenuListComp";
 import { Outlet } from "react-router-dom";
+import { Avatar, Menu, MenuItem, Tooltip } from "@mui/material";
 
+const settings = ["Logout"];
 const drawerWidth = 200;
 
 function Dashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const { user } = useSelector((state) => state.auth);
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+  const { user, email } = useSelector((state) => state.auth);
   const { logout } = useApiRequest();
 
+  console.log(email);
   const handleDrawerClose = () => {
     setIsClosing(true);
     setMobileOpen(false);
@@ -74,9 +84,50 @@ function Dashboard(props) {
             Stock App
           </Typography>
           {user && (
-            <Button color="inherit" onClick={logout}>
-              Logout
-            </Button>
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      flexDirection: "column",
+                      p: 1,
+                      gap: 1,
+                    }}
+                  >
+                    <Avatar alt="" src="" />
+                    <span style={{ color: "white", fontSize: "16px" }}>
+                      {email}
+                    </span>
+                  </Box>
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Button color="inherit" onClick={logout}>
+                      {setting}
+                    </Button>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
           )}
         </Toolbar>
       </AppBar>

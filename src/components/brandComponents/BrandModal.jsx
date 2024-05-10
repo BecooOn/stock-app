@@ -38,7 +38,7 @@ const BrandModal = () => {
         variant="contained"
         sx={{
           position: "absolute",
-          top: 5,
+          top: 35,
           left: 0,
           "&:hover": {
             backgroundColor: "red",
