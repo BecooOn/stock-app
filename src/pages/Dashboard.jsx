@@ -33,8 +33,6 @@ function Dashboard(props) {
   };
   const { user, email } = useSelector((state) => state.auth);
   const { logout } = useApiRequest();
-
-  console.log(email);
   const handleDrawerClose = () => {
     setIsClosing(true);
     setMobileOpen(false);

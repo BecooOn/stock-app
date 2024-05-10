@@ -23,7 +23,16 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
 
 const Home = () => {
   return (
-    <Box sx={{ "display":"flex",justifyContent: "center", alignItems:"center",flexDirection:"column",p:"24px"}}>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        // flexWrap: "wrap",
+        p: "24px",
+      }}
+    >
       <Stack direction="row" spacing={2}>
         <DemoPaper>
           <Avatar sx={{ backgroundColor: "green[500]" }}>
