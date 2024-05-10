@@ -4,22 +4,23 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { object, string, number } from "yup";
 import { Form } from "formik";
+// import useStockRequest from "../../services/useStockRequest";
+import useStockRequest from "../../services/useStockRequest";
 
 export const firmSchema = object({
-  name: string().required("Firma adı zorunludur"),
-  phone: number().required("Firma telefonu zorunludur").positive().integer(),
-  address: string().required("Firma adresi zorunludur"),
-  image: string().required("Firma fotoğrafı zorunludur"),
+  name: string().required("Firm name is required"),
+  phone: number().required("Firm phone is required").positive().integer(),
+  address: string().required("Firm address is required"),
+  image: string().required("Firm image is required"),
 });
 
-const UpdateFirmModalForm = ({
+const FirmModalForm = ({
   values,
   handleChange,
   errors,
   touched,
   handleBlur,
 }) => {
-    // console.log(values);
   return (
     <Form>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
@@ -40,7 +41,6 @@ const UpdateFirmModalForm = ({
           name="phone"
           id="phone"
           type="tel"
-          // pattern="[0-9]{4}-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
           variant="standard"
           value={values.phone}
           onChange={handleChange}
@@ -64,7 +64,7 @@ const UpdateFirmModalForm = ({
           label="Firm Image"
           name="image"
           id="image"
-          type="text"
+          type="url"
           variant="standard"
           value={values.image}
           onChange={handleChange}
@@ -72,16 +72,12 @@ const UpdateFirmModalForm = ({
           error={touched.image && Boolean(errors.image)}
           helperText={touched.image && errors.image}
         />
-        <Button
-          type="submit"
-          variant="contained"
-          size="large"
-        >
-          Update Firm
+        <Button type="submit" variant="contained" size="large">
+          Add Firm
         </Button>
       </Box>
     </Form>
   );
 };
 
-export default UpdateFirmModalForm;
+export default FirmModalForm;

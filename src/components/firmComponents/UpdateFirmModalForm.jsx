@@ -4,7 +4,6 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { object, string, number } from "yup";
 import { Form } from "formik";
-import useStockRequest from "../services/useStockRequest";
 
 export const firmSchema = object({
   name: string().required("Firma adı zorunludur"),
@@ -13,13 +12,14 @@ export const firmSchema = object({
   image: string().required("Firma fotoğrafı zorunludur"),
 });
 
-const FirmModalForm = ({
+const UpdateFirmModalForm = ({
   values,
   handleChange,
   errors,
   touched,
   handleBlur,
 }) => {
+    // console.log(values);
   return (
     <Form>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
@@ -40,7 +40,6 @@ const FirmModalForm = ({
           name="phone"
           id="phone"
           type="tel"
-          // pattern="[0-9]{4}-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}"
           variant="standard"
           value={values.phone}
           onChange={handleChange}
@@ -64,7 +63,7 @@ const FirmModalForm = ({
           label="Firm Image"
           name="image"
           id="image"
-          type="url"
+          type="text"
           variant="standard"
           value={values.image}
           onChange={handleChange}
@@ -77,11 +76,11 @@ const FirmModalForm = ({
           variant="contained"
           size="large"
         >
-          Add Firm
+          Update Firm
         </Button>
       </Box>
     </Form>
   );
 };
 
-export default FirmModalForm;
+export default UpdateFirmModalForm;

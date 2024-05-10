@@ -26,7 +26,6 @@ const useStockRequest = () => {
 
   //!-----------------Yeni bir firma ekleme işlemi-----------
   const createData = async (endpoint, datas) => {
-    //? 3 durum için dispatch yayını adına firmSlice a ihtiyacımız var
     dispatch(fetchStart()); //? pending
     try {
       await axiosToken.post(`/${endpoint}`, datas); //? güvenlikli istek kullanıyoruz. Firma oluşturacağımız için '/firms' ekliyoruz

@@ -7,7 +7,7 @@ import { Formik } from "formik";
 import FirmModalForm, { firmSchema } from "./FirmModalForm";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import useStockRequest from "../services/useStockRequest";
+import useStockRequest from "../../services/useStockRequest";
 
 const style = {
   position: "absolute",
@@ -74,7 +74,7 @@ const FirmModal = () => {
             }}
             validationSchema={firmSchema}
             onSubmit={(values, actions) => {
-              createData("firms",values);
+              createData("firms",values); //? firmaları oluşturmak için useStockRequest içindeki createData fonksiyonuna verilerimizi gönderiyoruz
               actions.resetForm();
               actions.setSubmitting(false);
             }}

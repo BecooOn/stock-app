@@ -8,7 +8,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import UpdateFirmModalForm from "./UpdateFirmModalForm";
 import { useSelector } from "react-redux";
 import { firmSchema } from "./FirmModalForm";
-import useStockRequest from "../services/useStockRequest";
+import useStockRequest from "../../services/useStockRequest";
 
 const style = {
   position: "absolute",
@@ -25,8 +25,7 @@ const style = {
 const UpdateFirmModal = ({ openUpdateModal, setOpenUpdateModal, updateId }) => {
   const handleClose = () => setOpenUpdateModal(false);
   const { firms } = useSelector((state) => state.getDatas);
-  const { updateData,getDatas } = useStockRequest();
-
+  const { updateData, getDatas } = useStockRequest();
 
   //!--firms ilk render'da json formatında create işleminde object olarak kullandığımız için,firms'in yaptığımız işlemlerin sonunda farklı type'larda olmasından kaynaklanan hatayı gidermek için dizi olup olmadığını Array.isArray() kullnarak çözüyoruz. Dizi olduğunda update yapıyoruz, object olduğunda tüm sayfayı yeniden getiriyoruz-------------
   const selectedFirm = Array.isArray(firms)
@@ -73,7 +72,7 @@ const UpdateFirmModal = ({ openUpdateModal, setOpenUpdateModal, updateId }) => {
             }}
             validationSchema={firmSchema}
             onSubmit={(values, actions) => {
-              updateData("firms",values,selectedFirm._id); //? Değerlere useStockRequest'e gönderiliyor
+              updateData("firms", values, selectedFirm._id); //? Değerlere useStockRequest'e gönderiliyor
               handleClose();
               actions.resetForm();
             }}

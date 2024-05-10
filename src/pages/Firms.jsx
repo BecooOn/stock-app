@@ -15,8 +15,8 @@ import StoreIcon from "@mui/icons-material/Store";
 import { useSelector } from "react-redux";
 import useStockRequest from "../services/useStockRequest";
 import loadingGif from "../assets/loading.gif";
-import FirmModal from "../components/FirmModal";
-import UpdateFirmModal from "../components/UpdateFirmModal";
+import FirmModal from "../components/firmComponents/FirmModal";
+import UpdateFirmModal from "../components/firmComponents/UpdateFirmModal";
 import TextField from "@mui/material/TextField";
 
 const Firms = () => {
@@ -43,7 +43,7 @@ const Firms = () => {
   );
 
   const handleUpdateModal = (value, id) => {
-    setOpenUpdateModal(value);
+    setOpenUpdateModal(value); //? value varsa true olur
     setUpdateId(id);
   };
 
@@ -78,9 +78,10 @@ const Firms = () => {
         <TextField
           label="Search Firm"
           variant="standard"
+          type="search"
           onChange={handleSearch}
           placeholder="Search Firm..."
-          sx={{ borderBottom: "3px solid black"}}
+          sx={{ borderBottom: "3px solid black" }}
         />
       </Box>
       {loading ? (
@@ -105,80 +106,81 @@ const Firms = () => {
             justifyContent="space-evenly"
             flexWrap="wrap"
           >
-            {filteredFirms?.map((item) => (
-              <Card
-                key={item._id}
-                sx={{
-                  width: 345,
-                  m: 3,
-                  py: 3,
-                  px: 1,
-                  height: 580,
-                  boxShadow: "0 0 4px black",
-                  textAlign: "center",
-                  position: "relative",
-                }}
+            {filteredFirms.length === 0 ? (
+              <Typography
+                variant="body1"
+                color="red"
+                textTransform="uppercase"
+                textAlign="center"
               >
-                <Typography
-                  gutterBottom
-                  variant="h5"
-                  component="div"
-                  color="orange"
-                  textTransform="uppercase"
-                >
-                  {item?.name}
-                </Typography>
-                <CardMedia
-                  component="img"
-                  height="250"
-                  image={item?.image}
-                  alt="img"
-                  sx={{ objectFit: "contain" }}
-                />
-                <CardContent>
-                  <Typography variant="body2" color="text.secondary">
-                    <span style={{ fontWeight: "bold" }}>Address:</span>
-                    {item?.address}
-                  </Typography>
-                </CardContent>
-                <CardContent>
-                  <Typography variant="body2" color="text.secondary">
-                    {item?.phone}
-                  </Typography>
-                </CardContent>
-                <CardActions
+                No Firms Found
+              </Typography>
+            ) : (
+              filteredFirms?.map((item) => (
+                <Card
+                  key={item._id}
                   sx={{
-                    justifyContent: "center",
-                    position: "absolute",
-                    gap: 2,
-                    bottom: 0,
-                    right: 0,
-                    transform: "translate(-50%, -50%)",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-around",
+                    alignItems: "center",
+                    width: 345,
+                    m: 3,
+                    py: 3,
+                    px: 1,
+                    height: 600,
+                    boxShadow: "0 0 4px black",
+                    textAlign: "center",
                   }}
                 >
-                  <Tooltip title={"Delete"} arrow>
-                    <Button
-                      // size="small"
-                      onClick={() => deleteData("firms", item._id)}
-                      sx={{ "&:hover": { color: "red" } }}
-                    >
-                      <DeleteForeverIcon sx={{ fontSize: "40px" }} />
-                    </Button>
-                  </Tooltip>
-                  <Tooltip title={"Update"} arrow>
-                    <Button
-                      // size="small"
-                      href={item?.url}
-                      target="_blank"
-                      sx={{ "&:hover": { color: "red" } }}
-                      onClick={() => handleUpdateModal("firms", item._id)}
-                    >
-                      <EditNoteIcon sx={{ fontSize: "40px" }} />
-                    </Button>
-                  </Tooltip>
-                </CardActions>
-              </Card>
-            ))}
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="div"
+                    color="orange"
+                    textTransform="uppercase"
+                  >
+                    {item?.name}
+                  </Typography>
+                  <CardMedia
+                    component="img"
+                    height="250"
+                    image={item?.image}
+                    alt="img"
+                    sx={{ objectFit: "contain" }}
+                  />
+                  <CardContent>
+                    <Typography variant="body2" color="text.secondary">
+                      <span style={{ fontWeight: "bold" }}>Address:</span>
+                      {item?.address}
+                    </Typography>
+                  </CardContent>
+                  <CardContent>
+                    <Typography variant="body2" color="text.secondary">
+                      {item?.phone}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Tooltip title={"Delete"} arrow>
+                      <Button
+                        onClick={() => deleteData("firms", item._id)}
+                        sx={{ "&:hover": { color: "red" } }}
+                      >
+                        <DeleteForeverIcon sx={{ fontSize: "40px" }} />
+                      </Button>
+                    </Tooltip>
+                    <Tooltip title={"Update"} arrow>
+                      <Button
+                        sx={{ "&:hover": { color: "red" } }}
+                        onClick={() => handleUpdateModal("firms", item._id)}
+                      >
+                        <EditNoteIcon sx={{ fontSize: "40px" }} />
+                      </Button>
+                    </Tooltip>
+                  </CardActions>
+                </Card>
+              ))
+            )}
           </Box>
         </>
       )}
