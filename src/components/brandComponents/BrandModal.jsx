@@ -75,6 +75,7 @@ const BrandModal = () => {
             onSubmit={(values, actions) => {
               createData("brands", values); //? markaları oluşturmak için useStockRequest içindeki createData fonksiyonuna verilerimizi gönderiyoruz
               actions.resetForm();
+              handleClose();
               actions.setSubmitting(false);
             }}
           >

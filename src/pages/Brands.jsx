@@ -14,10 +14,11 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import StoreIcon from "@mui/icons-material/Store";
 import { useSelector } from "react-redux";
 import useStockRequest from "../services/useStockRequest";
-import loadingGif from "../assets/loading.gif";
+// import loadingGif from "../assets/loading.gif";
 import TextField from "@mui/material/TextField";
 import BrandModal from "../components/brandComponents/BrandModal";
 import UpdateBrandModal from "../components/brandComponents/UpdateBrandModal";
+import { btnStyle } from "../styles/globalStyles";
 
 const Brands = () => {
   const { getDatas, deleteData } = useStockRequest();
@@ -107,7 +108,7 @@ const Brands = () => {
           sx={{ borderBottom: "3px solid black" }}
         />
       </Box>
-      {loading ? (
+      {/* {loading ? (
         <Box
           sx={{
             display: "flex",
@@ -118,7 +119,7 @@ const Brands = () => {
         >
           <img src={loadingGif} alt="gif" width={250} />
         </Box>
-      ) : (
+      ) : ( */}
         <>
           <BrandModal />
 
@@ -176,14 +177,14 @@ const Brands = () => {
                     <Tooltip title={"Delete"} arrow>
                       <Button
                         onClick={() => deleteData("brands", item._id)}
-                        sx={{ "&:hover": { color: "red" } }}
+                        sx={btnStyle}
                       >
                         <DeleteForeverIcon sx={{ fontSize: "40px" }} />
                       </Button>
                     </Tooltip>
                     <Tooltip title={"Update"} arrow>
                       <ButtonBase
-                        sx={{ "&:hover": { color: "red" } }}
+                        sx={btnStyle}
                         onClick={() => handleUpdateModal("brands", item._id)}
                       >
                         <EditNoteIcon sx={{ fontSize: "40px" }} />
@@ -195,7 +196,7 @@ const Brands = () => {
             )}
           </Box>
         </>
-      )}
+      
       <UpdateBrandModal
         openUpdateModal={openUpdateModal}
         setOpenUpdateModal={setOpenUpdateModal}

@@ -75,8 +75,8 @@ const UpdateBrandModal = ({
             validationSchema={brandSchema}
             onSubmit={(values, actions) => {
               updateData("brands", values, selectedBrand._id); //? Değerler useStockRequest'e gönderiliyor
-              handleClose();
               actions.resetForm();
+              handleClose();
             }}
           >
             {({

@@ -76,6 +76,7 @@ const FirmModal = () => {
             onSubmit={(values, actions) => {
               createData("firms", values); //? firmaları oluşturmak için useStockRequest içindeki createData fonksiyonuna verilerimizi gönderiyoruz
               actions.resetForm();
+              handleClose();
               actions.setSubmitting(false);
             }}
             component={(props) => <FirmModalForm {...props} />}

@@ -62,8 +62,7 @@ const UpdateFirmModal = ({ openUpdateModal, setOpenUpdateModal, updateId }) => {
           </Box>
           <Formik
             initialValues={{
-              //TODO
-              //* Bilgiler dolu olmalı
+              //* Günccelleme yapacağımız için input alanlarının dolu olması için
               _id: selectedFirm._id,
               name: selectedFirm.name,
               phone: selectedFirm.phone,
@@ -73,8 +72,8 @@ const UpdateFirmModal = ({ openUpdateModal, setOpenUpdateModal, updateId }) => {
             validationSchema={firmSchema}
             onSubmit={(values, actions) => {
               updateData("firms", values, selectedFirm._id); //? Değerlere useStockRequest'e gönderiliyor
-              handleClose();
               actions.resetForm();
+              handleClose();
             }}
             component={(props) => <UpdateFirmModalForm {...props} />}
           ></Formik>

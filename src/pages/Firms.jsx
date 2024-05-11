@@ -14,10 +14,11 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import StoreIcon from "@mui/icons-material/Store";
 import { useSelector } from "react-redux";
 import useStockRequest from "../services/useStockRequest";
-import loadingGif from "../assets/loading.gif";
+// import loadingGif from "../assets/loading.gif";
 import FirmModal from "../components/firmComponents/FirmModal";
 import UpdateFirmModal from "../components/firmComponents/UpdateFirmModal";
 import TextField from "@mui/material/TextField";
+import { btnStyle } from "../styles/globalStyles";
 
 const Firms = () => {
   const { getDatas, deleteData } = useStockRequest();
@@ -110,7 +111,7 @@ const Firms = () => {
           sx={{ borderBottom: "3px solid black" }}
         />
       </Box>
-      {loading ? (
+      {/* {loading ? (
         <Box
           sx={{
             display: "flex",
@@ -121,7 +122,7 @@ const Firms = () => {
         >
           <img src={loadingGif} alt="gif" width={250} />
         </Box>
-      ) : (
+      ) : ( */}
         <>
           <FirmModal />
 
@@ -150,11 +151,13 @@ const Firms = () => {
                     flexDirection: "column",
                     justifyContent: "space-around",
                     alignItems: "center",
-                    width: 345,
+                    maxWidth: 345,
+                    width: 300,
                     m: 3,
                     py: 3,
                     px: 1,
-                    height: 600,
+                    height: 550,
+                    maxHeight: 650,
                     boxShadow: "0 0 4px black",
                     textAlign: "center",
                   }}
@@ -170,10 +173,9 @@ const Firms = () => {
                   </Typography>
                   <CardMedia
                     component="img"
-                    height="250"
                     image={item?.image}
                     alt="img"
-                    sx={{ objectFit: "contain" }}
+                    sx={{ objectFit: "contain", height: "150px" }}
                   />
                   <CardContent>
                     <Typography variant="body2" color="text.secondary">
@@ -190,14 +192,14 @@ const Firms = () => {
                     <Tooltip title={"Delete"} arrow>
                       <Button
                         onClick={() => deleteData("firms", item._id)}
-                        sx={{ "&:hover": { color: "red" } }}
+                        sx={btnStyle}
                       >
                         <DeleteForeverIcon sx={{ fontSize: "40px" }} />
                       </Button>
                     </Tooltip>
                     <Tooltip title={"Update"} arrow>
                       <Button
-                        sx={{ "&:hover": { color: "red" } }}
+                        sx={btnStyle}
                         onClick={() => handleUpdateModal("firms", item._id)}
                       >
                         <EditNoteIcon sx={{ fontSize: "40px" }} />
@@ -209,7 +211,7 @@ const Firms = () => {
             )}
           </Box>
         </>
-      )}
+      
       <UpdateFirmModal
         openUpdateModal={openUpdateModal}
         setOpenUpdateModal={setOpenUpdateModal}
