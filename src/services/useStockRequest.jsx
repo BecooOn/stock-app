@@ -20,11 +20,11 @@ const useStockRequest = () => {
     try {
       const {
         data: { data },
-      } = await axiosToken(`/${endpoint}`); //* güvenlikli istek kullanıyoruz.
+      } = await axiosToken(`/${endpoint}/`); //* güvenlikli istek kullanıyoruz.
       dispatch(getDataSuccess({ data, key: endpoint })); //* fullfilled
     } catch (error) {
       dispatch(fetchFail()); //* rejected
-      toastErrorNotify("Oops! there is something wrong");
+      toastErrorNotify("Oops! there is something wrong while getting data");
     }
   };
 
@@ -32,12 +32,12 @@ const useStockRequest = () => {
   const createData = async (endpoint, datas) => {
     dispatch(fetchStart()); //? pending
     try {
-      await axiosToken.post(`/${endpoint}`, datas);
-      toastSuccessNotify("Added successfully!");
+      await axiosToken.post(`/${endpoint}/`, datas);
+      toastSuccessNotify(`${endpoint} was added successfully!`);
       getDatas(endpoint); //? oluşturma işlemi başarılı olduktan sonra güncel verileri getirmek için
     } catch (error) {
       dispatch(fetchFail()); //? rejected
-      toastErrorNotify("Oops! there is something wrong for adding");
+      toastErrorNotify(`Oops! there is something wrong while adding for ${endpoint}`);
     }
   };
 
@@ -46,11 +46,11 @@ const useStockRequest = () => {
     dispatch(fetchStart());
     try {
       await axiosToken.delete(`/${endpoint}/${id}`);
-      toastSuccessNotify("Deleted successfully!");
+      toastSuccessNotify(`${endpoint} was deleted successfully!`);
       getDatas(endpoint); //? silme işlemi başarılı olduktan sonra güncel verileri getirmek için
     } catch (error) {
       dispatch(fetchFail());
-      toastErrorNotify("Oops! there is something wrong for deleting");
+      toastErrorNotify(`Oops! there is something wrong while deleting for ${endpoint}`);
     }
   };
 
@@ -59,11 +59,11 @@ const useStockRequest = () => {
     dispatch(fetchStart()); //* pending
     try {
       await axiosToken.patch(`/${endpoint}/${id}`, datas);
-      toastSuccessNotify("Updated succesfully!");
+      toastSuccessNotify(`${endpoint} was updated successfully!`);
       getDatas(endpoint); //? Güncelleme işlemi başarılı olduktan sonra güncel verileri getirmek için
     } catch (error) {
       dispatch(fetchFail()); //* rejected
-      toastErrorNotify("Oops! there is something wrong for updating");
+      toastErrorNotify(`Oops! there is something wrong while updating for ${endpoint}`);
     }
   };
 
