@@ -21,12 +21,12 @@ const persistConfig = {
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, authReducer); //? persist edilecek reducer persistConFig den sonra yazılır. Normalde persistReducer şu şekşilde de yazılır; persistReducer(persistConfig, rootReducer), rootReducer burada bizim store alanımızdaki tüm reducerlerin toplamıdır. Eğer store da reducer da auth ve getDatas tek bir reducer olsaydı rootReducer olarak kullanıma devam ederdik; ancak biz sadece login verilerimizin kalıcı bellekte olmasını istediğimiz için rootReducer'ı sildik ve yerine authReducer'ı yazdık.
+const persistedReducer = persistReducer(persistConfig, authReducer); //? persist edilecek reducer persistConFig den sonra yazılır. Normalde persistReducer şu şekşilde de yazılır; persistReducer(persistConfig, rootReducer), rootReducer burada bizim store alanımızdaki tüm reducerlerin toplamıdır. Eğer store da reducer da auth ve stock tek bir reducer olsaydı rootReducer olarak kullanıma devam ederdik; ancak biz sadece login verilerimizin kalıcı bellekte olmasını istediğimiz için rootReducer'ı sildik ve yerine authReducer'ı yazdık.
 
 const store = configureStore({
   reducer: {
     auth: persistedReducer, //* Burada authReducer yerine persistedReducer yazdık; çünkü yukarıda kalıcı bellekte tutmak için oluşturmuş olduğumuz fonksiyonu burada auth a atamalıyız
-    getDatas: getDataReducer, //*tüm veriler için tek reducer
+    stock: getDataReducer, //*tüm veriler için tek reducer
   },
 //* redux-persist'ten kaynaklı hataları gidermek için middleware eklendi edildi
   middleware: (getDefaultMiddleware) =>

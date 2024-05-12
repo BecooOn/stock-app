@@ -22,7 +22,7 @@ import { btnStyle } from "../styles/globalStyles";
 
 const Brands = () => {
   const { getDatas, deleteData } = useStockRequest();
-  const { brands: allBrands, loading } = useSelector((state) => state.getDatas);
+  const { brands: allBrands, loading } = useSelector((state) => state.stock);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [updateId, setUpdateId] = useState("");
   const [searchTerm, setSearchTerm] = useState("");

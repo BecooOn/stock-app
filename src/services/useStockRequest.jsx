@@ -2,72 +2,66 @@
 
 import { useDispatch } from "react-redux";
 import useAxios from "./useAxios";
-import { fetchStart, getDataSuccess, fetchFail } from "../features/getDataSlice";
+import {
+  fetchStart,
+  getDataSuccess,
+  fetchFail,
+} from "../features/getDataSlice";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 
 const useStockRequest = () => {
   const { axiosToken } = useAxios();
   const dispatch = useDispatch();
 
-  //!------------Firma bilgilerinin alınması işlemi----------
+  //!------------Verilerin API den alınması işlemi----------
   const getDatas = async (endpoint) => {
-    //? 3 durum için dispatch yayını adına firmSlice a ihtiyacımız var
+    //? 3 durum için dispatch yayını adına getDataSlice'a ihtiyacımız var
     dispatch(fetchStart()); //* pending
     try {
       const {
-        data: { data }} = await axiosToken(`/${endpoint}`); //* güvenlikli istek kullanıyoruz. Firmaları getireceğimiz için '/firms' ekliyoruz
-      dispatch(getDataSuccess({ data, key: endpoint }));  //* fullfilled
+        data: { data },
+      } = await axiosToken(`/${endpoint}`); //* güvenlikli istek kullanıyoruz.
+      dispatch(getDataSuccess({ data, key: endpoint })); //* fullfilled
     } catch (error) {
-      // console.log(error);
       dispatch(fetchFail()); //* rejected
       toastErrorNotify("Oops! there is something wrong");
     }
   };
 
-  //!-----------------Yeni bir firma ekleme işlemi-----------
+  //!-----------------Create(oluşturma) işlemi-----------
   const createData = async (endpoint, datas) => {
     dispatch(fetchStart()); //? pending
     try {
-      await axiosToken.post(`/${endpoint}`, datas); //? güvenlikli istek kullanıyoruz. Firma oluşturacağımız için '/firms' ekliyoruz
-      // console.log(data);
-      // dispatch(getDataSuccess(data)); //? fullfilled
+      await axiosToken.post(`/${endpoint}`, datas);
       toastSuccessNotify("Added successfully!");
-      getDatas(endpoint); //? oluşturma işlemi başarılı olduktan sonra firmaları getiren fonksiyon
+      getDatas(endpoint); //? oluşturma işlemi başarılı olduktan sonra güncel verileri getirmek için
     } catch (error) {
-      // console.log(error);
       dispatch(fetchFail()); //? rejected
       toastErrorNotify("Oops! there is something wrong for adding");
     }
   };
 
-  //!-------------Firma silme işlemi---------------------
-  const deleteData = async (endpoint,id) => {
+  //!-------------Veri silme işlemi---------------------
+  const deleteData = async (endpoint, id) => {
     dispatch(fetchStart());
     try {
       await axiosToken.delete(`/${endpoint}/${id}`);
-      // dispatch(getDataSuccess(data));
       toastSuccessNotify("Deleted successfully!");
-      getDatas(endpoint); //? silme işlemi başarılı olduktan sonra firmaları getiren fonksiyon
+      getDatas(endpoint); //? silme işlemi başarılı olduktan sonra güncel verileri getirmek için
     } catch (error) {
       dispatch(fetchFail());
       toastErrorNotify("Oops! there is something wrong for deleting");
     }
   };
 
-  //!-----------Firma bilgilerinin güncellenmesi işlemi-----
+  //!-----------Verilerin güncellenmesi işlemi-----
   const updateData = async (endpoint, datas, id) => {
-    //? 3 durum için dispatch yayını adına firmSlice a ihtiyacımız var
     dispatch(fetchStart()); //* pending
     try {
-      await axiosToken.patch(
-        `/${endpoint}/${id}`, datas
-      ); //* güvenlikli istek kullanıyoruz. Firma oluşturacağımız için '/firms' ekliyoruz
-      // console.log(data);
-      // dispatch(getDataSuccess(data)); //* fullfilled
+      await axiosToken.patch(`/${endpoint}/${id}`, datas);
       toastSuccessNotify("Updated succesfully!");
-      getDatas(endpoint); //? oluşturma işlemi başarılı olduktan sonra firmaları getiren fonksiyon
+      getDatas(endpoint); //? Güncelleme işlemi başarılı olduktan sonra güncel verileri getirmek için
     } catch (error) {
-      // console.log(error);
       dispatch(fetchFail()); //* rejected
       toastErrorNotify("Oops! there is something wrong for updating");
     }

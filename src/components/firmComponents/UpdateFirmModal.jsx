@@ -24,7 +24,7 @@ const style = {
 
 const UpdateFirmModal = ({ openUpdateModal, setOpenUpdateModal, updateId }) => {
   const handleClose = () => setOpenUpdateModal(false);
-  const { firms } = useSelector((state) => state.getDatas);
+  const { firms } = useSelector((state) => state.stock);
   const { updateData, getDatas } = useStockRequest();
 
   //!--firms ilk render'da json formatında create işleminde object olarak kullandığımız için,firms'in yaptığımız işlemlerin sonunda farklı type'larda olmasından kaynaklanan hatayı gidermek için dizi olup olmadığını Array.isArray() kullnarak çözüyoruz. Dizi olduğunda update yapıyoruz, object olduğunda tüm sayfayı yeniden getiriyoruz-------------

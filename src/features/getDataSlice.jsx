@@ -12,7 +12,7 @@ const initialState = {
 };
 
 const getDataSlice = createSlice({
-  name: "getDatas",
+  name: "stock",
   initialState,
   reducers: {
     fetchStart: (state) => {

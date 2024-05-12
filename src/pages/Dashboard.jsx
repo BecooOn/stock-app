@@ -83,7 +83,7 @@ function Dashboard(props) {
           </Typography>
           {user && (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
+              <Tooltip>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Box
                     sx={{

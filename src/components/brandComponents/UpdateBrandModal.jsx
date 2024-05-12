@@ -27,7 +27,7 @@ const UpdateBrandModal = ({
   updateId,
 }) => {
   const handleClose = () => setOpenUpdateModal(false);
-  const { brands } = useSelector((state) => state.getDatas);
+  const { brands } = useSelector((state) => state.stock);
   const { updateData, getDatas } = useStockRequest();
 
   const brandSchema = object({
