@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import useStockRequest from "../services/useStockRequest";
 import { useSelector } from "react-redux";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
 import ProductModal from "../components/productComponents/ProductModal";
 import ProductTable from "../components//productComponents/ProductTable";
 import { Box, Tooltip } from "@mui/material";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 
-const Firms = () => {
+const Products = () => {
   const { getDatas } = useStockRequest();
   const { products } = useSelector((state) => state.stock);
   const [open, setOpen] = useState(false);
@@ -51,7 +49,7 @@ const Firms = () => {
         <h1 style={{ textAlign: "center" }}>Products</h1>
         <Box>
           <Tooltip
-            title={`Number of Firms: ${products ? products.length : 0}`}
+            title={`Number of Products: ${products ? products.length : 0}`}
             arrow
           >
             <Box>
@@ -97,4 +95,4 @@ const Firms = () => {
   );
 };
 
-export default Firms;
+export default Products;

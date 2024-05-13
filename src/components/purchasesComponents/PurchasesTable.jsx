@@ -1,3 +1,13 @@
+// import React from 'react'
+
+// const PurchasesTable = () => {
+//   return (
+//     <div>PurchasesTable</div>
+//   )
+// }
+
+// export default PurchasesTable
+
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
@@ -5,8 +15,8 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useSelector } from "react-redux";
 import useStockRequest from "../../services/useStockRequest";
 
-export default function ProductTable() {
-  const { deleteData } = useStockRequest();
+export default function PurchasesTable() {
+  const { updateData,deleteData } = useStockRequest();
   const { products } = useSelector((state) => state.stock);
 
   const getRowId = (row) => row._id; //? Data grid de satırlar unique id'lere sahip olması gerekiyor.Bu nedenle bu fonksiyonu yazıyoruz ve DataGrid comp. içerisinde kullanıyoruz. Esasında API den farklı id gelmesine rağmen APı den gelen _id isimli olduğu için DataGrid bu farklılığı algılamıyor
