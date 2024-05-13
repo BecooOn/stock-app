@@ -28,14 +28,11 @@ const style = {
 };
 
 export default function ProductModal({ handleClose, open, info, setInfo }) {
-  const { createData} = useStockRequest();
+  const { createData } = useStockRequest();
   const { products } = useSelector((state) => state.stock);
-  const catNames = Array.from(
-    new Set(products.map((product) => product.categoryId.name))
-  );
-  const brandNames = Array.from(
-    new Set(products.map((product) => product.brandId.name))
-  );
+  const uniqueCategories = Array.from(new Set(products.map((product) => product.categoryId._id))); //? category id'lerden tekrar edenleri önlemek ve select içinde sadece bir defa görmek için
+  const uniqueBrands = Array.from(new Set(products.map((product) => product.brandId._id))); //? brand id'lerden tekrar edenleri önlemek ve select içinde sadece bir defa görmek için
+
   // console.log(brandNames);
 
   const handleChange = (e) => {
@@ -49,7 +46,7 @@ export default function ProductModal({ handleClose, open, info, setInfo }) {
     handleClose();
   };
 
-  // console.log(info);
+  console.log(info);
   return (
     <div>
       <Modal
@@ -87,11 +84,19 @@ export default function ProductModal({ handleClose, open, info, setInfo }) {
                   onChange={handleChange}
                   required
                 >
-                  {catNames.map((catName) => (
-                    <MenuItem key={catName} value={catName}>
-                      {catName}
-                    </MenuItem>
-                  ))}
+                  {uniqueCategories.map((categoryId) => {
+                    const category = products.find(
+                      (product) => product.categoryId._id === categoryId
+                    );
+                    return (
+                      <MenuItem
+                        key={category.categoryId._id}
+                        value={category.categoryId._id}
+                      >
+                        {category.categoryId.name}
+                      </MenuItem>
+                    );
+                  })}
                   <MenuItem value="addCategory">Add Category</MenuItem>
                 </Select>
               </FormControl>
@@ -105,11 +110,19 @@ export default function ProductModal({ handleClose, open, info, setInfo }) {
                   onChange={handleChange}
                   required
                 >
-                  {brandNames.map((brandName) => (
-                    <MenuItem key={brandName} value={brandName}>
-                      {brandName}
-                    </MenuItem>
-                  ))}
+                  {uniqueBrands.map((brandId) => {
+                    const brand = products.find(
+                      (product) => product.brandId._id === brandId
+                    );
+                    return (
+                      <MenuItem
+                        key={brand.brandId._id}
+                        value={brand.brandId._id}
+                      >
+                        {brand.brandId.name}
+                      </MenuItem>
+                    );
+                  })}
                 </Select>
               </FormControl>
               <FormControl sx={{ my: 2, width: "100%" }}>
