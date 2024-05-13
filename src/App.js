@@ -19,7 +19,7 @@ function App() {
     },
     typography: {
       fontFamily: 'Anta, sans-serif', 
-      fontSize: 18,
+      fontSize: 16,
     }
   });
   return (
