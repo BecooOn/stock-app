@@ -1,64 +1,85 @@
-// import React from 'react'
-
-// const PurchasesTable = () => {
-//   return (
-//     <div>PurchasesTable</div>
-//   )
-// }
-
-// export default PurchasesTable
-
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useSelector } from "react-redux";
 import useStockRequest from "../../services/useStockRequest";
+import { btnStyle } from "../../styles/globalStyles";
 
-export default function PurchasesTable() {
-  const { updateData,deleteData } = useStockRequest();
-  const { products } = useSelector((state) => state.stock);
+export default function PurchasesTable({ handleOpen, setInfo }) {
+  const { updateData, deleteData } = useStockRequest();
+  const { purchases } = useSelector((state) => state.stock);
 
   const getRowId = (row) => row._id; //? Data grid de satırlar unique id'lere sahip olması gerekiyor.Bu nedenle bu fonksiyonu yazıyoruz ve DataGrid comp. içerisinde kullanıyoruz. Esasında API den farklı id gelmesine rağmen APı den gelen _id isimli olduğu için DataGrid bu farklılığı algılamıyor
-  // const a = products.map((product) => product.categoryId.name);
-  // console.log(a);
   const columns = [
-    { field: "_id", headerName: "#", minWidth: 150, flex: 1.4 },
     {
-      field: "categoryId", //* API'den gelen veri ile aynı isim kullanılmalıdır
-      headerName: "Categories", //* Kullanıcıya gösterilecek isimi headerName e yazıyoruz. Api'den gelen isimden farklı kullanılabilir
+      field: "createdAt",
+      headerName: "Date",
+      sortable: true,
+      minWidth: 150,
+      flex: 1.2,
+    },
+    {
+      field: "firmId", //* API'den gelen veri ile aynı isim kullanılmalıdır
+      headerName: "Firm", //* Kullanıcıya gösterilecek isimi headerName e yazıyoruz. Api'den gelen isimden farklı kullanılabilir
+      sortable: true,
       flex: 1, //* Sütunun ne oranda büyüyüp küçüleceği
-      minWidth: 100,
-      valueGetter: (value, row) => row.categoryId?.name, //* row içerisindeki categoryId içindeki kategorinin name'i
+      minWidth: 160,
+      valueGetter: (value, row) => row.firmId?.name, //* row içerisindeki firmId içindeki firmanın name'i
+      // valueGetter: (value) => value?.name, //* bir önceki valueGetter ile aynı işlemi yapar
     },
     {
       field: "brandId",
-      headerName: "Brands",
-      headerAlign: "center",
-      align: "center",
-      width: 150,
-      flex: 1.2,
-      editable: true,
-      valueGetter: (value, row) => row.brandId?.name, //* row içerisindeki brandId içindeki markanın name'i
-    },
-    {
-      field: "name",
-      headerName: "Name",
-      headerAlign: "center",
-      align: "center",
-      flex: 1.1,
-      miWidth: 110,
-      editable: true,
-      valueGetter: (value, row) => row.name, //* ürün ismi
-    },
-    {
-      field: "quantity",
-      headerName: "Stock",
+      headerName: "Brand",
       sortable: true,
       headerAlign: "center",
       align: "center",
       width: 160,
-      valueGetter: (value, row) => row.quantity, //* ürün sayısı
+      flex: 1,
+      editable: true,
+      valueGetter: (value, row) => row.brandId?.name, //* row içerisindeki brandId içindeki markanın name'i
+    },
+    {
+      field: "productId",
+      headerName: "Product",
+      headerAlign: "center",
+      sortable: true,
+      align: "center",
+      flex: 1,
+      miWidth: 160,
+      editable: true,
+      valueGetter: (value, row) => row.productId?.name, //* row içerisindeki productId içindeki ürünün name'i
+    },
+    {
+      field: "quantity",
+      headerName: "Quantity",
+      sortable: true,
+      headerAlign: "center",
+      align: "center",
+      width: 120,
+      flex: 1.2,
+      //   valueGetter: (value, row) => row.quantity, //* stokta bulunan miktar
+    },
+    {
+      field: "price",
+      headerName: "Price",
+      sortable: true,
+      headerAlign: "center",
+      align: "center",
+      width: 120,
+      flex: 1.2,
+      //   valueGetter: (value, row) => row.price, //* fiyat bilgisi
+    },
+    {
+      field: "amount",
+      headerName: "Amount",
+      sortable: true,
+      headerAlign: "center",
+      align: "center",
+      width: 120,
+      flex: 1.2,
+      //   valueGetter: (value, row) => row.amount, //* toplam miktar
     },
     {
       field: "actions",
@@ -68,8 +89,16 @@ export default function PurchasesTable() {
         //? satır içi component kullanımı için oluşturulan built-in fonk.
         return [
           <GridActionsCellItem
-            icon={<DeleteForeverIcon />}
-            onClick={() => deleteData("products", props.id)}
+            icon={<EditNoteIcon sx={btnStyle} />}
+            onClick={() => {
+              handleOpen();
+              setInfo(props?.row);
+            }}
+            label="Update"
+          />,
+          <GridActionsCellItem
+            icon={<DeleteForeverIcon sx={btnStyle} />}
+            onClick={() => deleteData("purchases", props.id)}
             label="Delete"
           />,
         ];
@@ -81,7 +110,7 @@ export default function PurchasesTable() {
     <Box sx={{ width: "100%" }}>
       <DataGrid
         autoHeight
-        rows={products} //? API den gelen ürünleri satırlara aktarıyoruz
+        rows={purchases} //? API den gelen satın alma bilgilerini satırlara aktarıyoruz
         columns={columns} //? sütun bilgilerini yukarıda tanımladık
         initialState={{
           pagination: {
@@ -90,8 +119,8 @@ export default function PurchasesTable() {
             },
           },
         }}
-        pageSizeOptions={[5]}
-        checkboxSelection
+        pageSizeOptions={[5, 10, 20, 50]}
+        // checkboxSelection
         disableRowSelectionOnClick
         getRowId={getRowId}
         slots={{ toolbar: GridToolbar }}

@@ -16,16 +16,17 @@ const getDataSlice = createSlice({
   initialState,
   reducers: {
     fetchStart: (state) => {
-      //! firm pending için
+      //! pending için
       state.loading = true;
+      state.error = false; //* skeleton için
     },
     getDataSuccess: (state, { payload }) => {
       state.loading = false;
       state[payload.key] = payload.data;
-      state.error = false;
+      // state.error = false; //* pending de false olduğu için burada gerekli değil; çünkü her seferinde bu case'leri çağırıyoruz
     },
     fetchFail: (state) => {
-      //! firm rejected için
+      //! rejected için
       state.loading = false;
       state.error = true;
     },

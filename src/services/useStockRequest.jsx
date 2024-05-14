@@ -24,7 +24,7 @@ const useStockRequest = () => {
       dispatch(getDataSuccess({ data, key: endpoint })); //* fullfilled
     } catch (error) {
       dispatch(fetchFail()); //* rejected
-      toastErrorNotify("Oops! there is something wrong while getting data");
+      // toastErrorNotify("Oops! there is something wrong while getting data");
     }
   };
 
@@ -58,7 +58,7 @@ const useStockRequest = () => {
   const updateData = async (endpoint, datas, id) => {
     dispatch(fetchStart()); //* pending
     try {
-      await axiosToken.patch(`/${endpoint}/${id}`, datas);
+      await axiosToken.put(`/${endpoint}/${id}`, datas);
       toastSuccessNotify(`${endpoint} was updated successfully!`);
       getDatas(endpoint); //? Güncelleme işlemi başarılı olduktan sonra güncel verileri getirmek için
     } catch (error) {

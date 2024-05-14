@@ -14,24 +14,14 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useSelector } from "react-redux";
+import { modalStyle } from "../../styles/globalStyles";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
 
 export default function ProductModal({ handleClose, open, info, setInfo }) {
   const { createData } = useStockRequest();
   const { products } = useSelector((state) => state.stock);
-  const uniqueCategoriesID = Array.from(new Set(products.map((product) => product.categoryId._id))); //? category id'lerden tekrar edenleri önlemek ve select içinde sadece bir defa görmek için
-  const uniqueBrandsID = Array.from(new Set(products.map((product) => product.brandId._id))); //? brand id'lerden tekrar edenleri önlemek ve select içinde sadece bir defa görmek için
+  const uniqueCategoriesID = Array.from(new Set(products.map((product) => product?.categoryId?._id))); //? category id'lerden tekrar edenleri önlemek ve select içinde sadece bir defa görmek için
+  const uniqueBrandsID = Array.from(new Set(products.map((product) => product?.brandId?._id))); //? brand id'lerden tekrar edenleri önlemek ve select içinde sadece bir defa görmek için
 
   // console.log(brandNames);
 
@@ -55,7 +45,7 @@ export default function ProductModal({ handleClose, open, info, setInfo }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={modalStyle}>
           <Box sx={{ minWidth: 120 }}>
             <Box
               sx={{
@@ -79,21 +69,21 @@ export default function ProductModal({ handleClose, open, info, setInfo }) {
                   labelId="categoryId"
                   name="categoryId"
                   id="categoryId"
-                  value={info.categoryId}
+                  value={info?.categoryId}
                   label="Category"
                   onChange={handleChange}
                   required
                 >
                   {uniqueCategoriesID.map((categoryId) => {
                     const category = products.find(
-                      (product) => product.categoryId._id === categoryId
+                      (product) => product?.categoryId?._id === categoryId
                     );
                     return (
                       <MenuItem
-                        key={category.categoryId._id}
-                        value={category.categoryId._id}
+                        key={category?.categoryId?._id}
+                        value={category?.categoryId?._id}
                       >
-                        {category.categoryId.name}
+                        {category?.categoryId?.name}
                       </MenuItem>
                     );
                   })}
@@ -104,21 +94,21 @@ export default function ProductModal({ handleClose, open, info, setInfo }) {
                 <Select
                   labelId="brandId"
                   name="brandId"
-                  value={info.brandId}
+                  value={info?.brandId}
                   label="Brand"
                   onChange={handleChange}
                   required
                 >
                   {uniqueBrandsID.map((brandId) => {
                     const brand = products.find(
-                      (product) => product.brandId._id === brandId
+                      (product) => product?.brandId?._id === brandId
                     );
                     return (
                       <MenuItem
-                        key={brand.brandId._id}
-                        value={brand.brandId._id}
+                        key={brand?.brandId?._id}
+                        value={brand?.brandId?._id}
                       >
-                        {brand.brandId.name}
+                        {brand?.brandId?.name}
                       </MenuItem>
                     );
                   })}
@@ -132,22 +122,10 @@ export default function ProductModal({ handleClose, open, info, setInfo }) {
                   type="text"
                   variant="outlined"
                   required
-                  value={info.name}
+                  value={info?.name}
                   onChange={handleChange}
                 />
               </FormControl>
-              {/* <FormControl sx={{ my: 2, width: "100%" }}>
-                <TextField
-                  label="Quantity"
-                  name="quantity"
-                  id="quantity"
-                  type="number"
-                  variant="outlined"
-                  required
-                  value={info.quantity}
-                  onChange={handleChange}
-                />
-              </FormControl> */}
               <Button
                 type="submit"
                 variant="contained"

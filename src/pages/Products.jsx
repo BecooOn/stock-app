@@ -6,17 +6,19 @@ import ProductModal from "../components/productComponents/ProductModal";
 import ProductTable from "../components//productComponents/ProductTable";
 import { Box, Tooltip } from "@mui/material";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
+import TableSkeleton, { ErrorMessage, NoDataMessage } from "../components/DataFetchMessages";
 
 const Products = () => {
   const { getDatas } = useStockRequest();
-  const { products } = useSelector((state) => state.stock);
+  const { products, error, loading } = useSelector((state) => state.stock);
+  //? veri çekme esnasında hata varsa error mesajını DataFetchMessages comp da oluşturduğumuz component'ler ile yapmak için global alandan aldığımız error'u kullanacağız
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
 
   const [info, setInfo] = useState({
     categoryId: "",
     brandId: "",
-    name: ""
+    name: "",
   });
 
   const handleClose = () => {
@@ -24,7 +26,7 @@ const Products = () => {
     setInfo({
       categoryId: "",
       brandId: "",
-      name: ""
+      name: "",
     });
   };
 
@@ -79,9 +81,14 @@ const Products = () => {
             backgroundColor: "red",
           },
         }}
+        disabled={error}
       >
         New Product
       </Button>
+      {loading && <TableSkeleton />}
+      {error && <ErrorMessage />}
+      {!error && !loading && products.length > 0 && <ProductTable />}
+      {!error && !loading && !products.length && <NoDataMessage />}
 
       <ProductModal
         handleClose={handleClose}
@@ -89,8 +96,6 @@ const Products = () => {
         info={info}
         setInfo={setInfo}
       />
-
-      <ProductTable />
     </Box>
   );
 };

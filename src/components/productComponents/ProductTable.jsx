@@ -4,6 +4,7 @@ import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useSelector } from "react-redux";
 import useStockRequest from "../../services/useStockRequest";
+import { btnStyle } from "../../styles/globalStyles";
 
 export default function ProductTable() {
   const { deleteData } = useStockRequest();
@@ -19,7 +20,8 @@ export default function ProductTable() {
       headerName: "Categories", //* Kullanıcıya gösterilecek isimi headerName e yazıyoruz. Api'den gelen isimden farklı kullanılabilir
       flex: 1, //* Sütunun ne oranda büyüyüp küçüleceği
       minWidth: 100,
-      valueGetter: (value, row) => row.categoryId?.name, //* row içerisindeki categoryId içindeki kategorinin name'i
+      valueGetter: (value, row) => row.categoryId?.name, //* Bu şekilde nested(iç içe) veriler olduğunda valueGetter fonksiyonu kullanmalıyız
+      // valueGetter: (value) => value?.name, //* bir önceki valueGetter ile aynı işlemi yapar
     },
     {
       field: "brandId",
@@ -29,7 +31,8 @@ export default function ProductTable() {
       width: 150,
       flex: 1.2,
       editable: true,
-      valueGetter: (value, row) => row.brandId?.name, //* row içerisindeki brandId içindeki markanın name'i
+      valueGetter: (value, row) => row.brandId?.name,
+      // valueGetter: (value) => value?.name, //* bir önceki valueGetter ile aynı işlemi yapar
     },
     {
       field: "name",
@@ -37,17 +40,20 @@ export default function ProductTable() {
       headerAlign: "center",
       align: "center",
       flex: 1.1,
-      miWidth: 110,
+      width: 110,
+      sortable: true,
       editable: true,
       valueGetter: (value, row) => row.name, //* ürün ismi
+      // valueGetter: (value, row) => value?.name, //* ürün ismi
     },
     {
       field: "quantity",
       headerName: "Stock",
-      sortable: true,
       headerAlign: "center",
       align: "center",
       width: 160,
+      sortable: true,
+      editable: true,
       valueGetter: (value, row) => row.quantity, //* ürün sayısı
     },
     {
@@ -58,7 +64,7 @@ export default function ProductTable() {
         //? satır içi component kullanımı için oluşturulan built-in fonk.
         return [
           <GridActionsCellItem
-            icon={<DeleteForeverIcon />}
+            icon={<DeleteForeverIcon sx={btnStyle}/>}
             onClick={() => deleteData("products", props.id)}
             label="Delete"
           />,
@@ -80,7 +86,7 @@ export default function ProductTable() {
             },
           },
         }}
-        pageSizeOptions={[5]}
+        pageSizeOptions={[5,10,20,50]}
         checkboxSelection
         disableRowSelectionOnClick
         getRowId={getRowId}
