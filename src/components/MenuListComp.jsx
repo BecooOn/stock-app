@@ -32,6 +32,11 @@ const MenuListComp = () => {
       path: "sales",
     },
     {
+      title: "Products",
+      iconName: <InventoryIcon />,
+      path: "products",
+    },
+    {
       title: "Firms",
       iconName: <StoreIcon />,
       path: "firms",
@@ -40,11 +45,6 @@ const MenuListComp = () => {
       title: "Brands",
       iconName: <StarsIcon />,
       path: "brands",
-    },
-    {
-      title: "Products",
-      iconName: <InventoryIcon />,
-      path: "products",
     },
   ];
 

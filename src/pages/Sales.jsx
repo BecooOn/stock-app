@@ -10,6 +10,7 @@ import TableSkeleton, {
   ErrorMessage,
   NoDataMessage,
 } from "../components/DataFetchMessages";
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 
 const Sales = () => {
   const { getDatas } = useStockRequest();
@@ -62,7 +63,7 @@ const Sales = () => {
             arrow
           >
             <Box>
-              <Inventory2Icon />
+              <MonetizationOnIcon sx={{width:"35px",height:"35px"}}/>
               <sup
                 style={{
                   color: "orange",

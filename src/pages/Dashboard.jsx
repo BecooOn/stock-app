@@ -5,7 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-
+import logo from "../assets/logo.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -13,10 +13,10 @@ import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
 import useApiRequest from "../services/useApiRequest";
 import MenuListComp from "../components/MenuListComp";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Avatar, Menu, MenuItem, Tooltip } from "@mui/material";
 
-const settings = ["Logout"];
+const settings = ["User", "Logout"];
 const drawerWidth = 200;
 
 function Dashboard(props) {
@@ -24,6 +24,7 @@ function Dashboard(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -33,6 +34,15 @@ function Dashboard(props) {
   };
   const { user, email } = useSelector((state) => state.auth);
   const { logout } = useApiRequest();
+
+  const handleMenuClick = (setting) => {
+    handleCloseUserMenu();
+    if (setting === "Logout") {
+      logout();
+    } else if (setting === "User") {
+      navigate("user");
+    }
+  };
   const handleDrawerClose = () => {
     setIsClosing(true);
     setMobileOpen(false);
@@ -78,8 +88,13 @@ function Dashboard(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            Stock App
+          <Typography variant="h6" noWrap component="div" sx={{display:"flex",alignItems:"center", flexGrow: 1,gap:2 }}>
+            <img
+              src={logo}
+              alt="Logo"
+              style={{ width: "50px", height: "50px", borderRadius: "50%",backgroundColor:"pink" }}
+            />
+            <span>Stock App</span>
           </Typography>
           {user && (
             <Box sx={{ flexGrow: 0 }}>
@@ -118,10 +133,11 @@ function Dashboard(props) {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Button color="inherit" onClick={logout}>
-                      {setting}
-                    </Button>
+                  <MenuItem
+                    key={setting}
+                    onClick={() => handleMenuClick(setting)}
+                  >
+                    {setting}
                   </MenuItem>
                 ))}
               </Menu>

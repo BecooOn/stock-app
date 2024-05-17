@@ -4,6 +4,11 @@ const initialState = {
   user: "",
   token: "",
   email:"",
+  password: "",
+  email: "",
+  firstName: "",
+  lastName: "",
+  _id:"",
   loading: false,
   error: false,
 };
@@ -33,6 +38,16 @@ const authSlice = createSlice({
       state.token = payload.token;
       state.error = false
     },
+    getUserSuccess: (state, { payload }) => {
+      state.loading = false;
+      state.user = payload.data[0].username;
+      state.firstName = payload.data[0].firstName;
+      state.lastName = payload.data[0].lastName;
+      state.email = payload.data[0].email;
+      state.password = payload.data[0].password;
+      state._id = payload.data[0]._id;
+      state.error = false
+    },
 
     logoutSuccess: (state) => {
       //! logout fullfilled için
@@ -50,5 +65,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { fetchStart,loginSuccess,registerSuccess,logoutSuccess,fetchFail } = authSlice.actions;
+export const { fetchStart,loginSuccess,registerSuccess,getUserSuccess,logoutSuccess,fetchFail } = authSlice.actions;
 export default authSlice.reducer;

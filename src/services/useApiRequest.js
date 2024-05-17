@@ -2,7 +2,7 @@
 //* Eğer uygulamanın her yerinde kullanmak için bazı fonksiyonlara ihtyaç varsa  ve bu fonksiyonlar içerisinde custom hook'ların ( useSelector, useDispatch,useNavigate vb.) kullanılması gerekiyorsa o zaman çözüm bu dosyayı custom hook'a çevirmektir.
 //? İstek atma işlemlerini burada oluşturduk. Tek alan içerisinde topladık
 
-import axios from "axios";
+// import axios from "axios";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 import {
   fetchFail,
@@ -10,6 +10,7 @@ import {
   loginSuccess,
   registerSuccess,
   logoutSuccess,
+  getUserSuccess,
 } from "../features/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -18,8 +19,8 @@ import useAxios from "./useAxios";
 const useApiRequest = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { token } = useSelector((state) => state.auth); //* global alandan token bilgisini alıyoruz, useAxios custom hooku sayesinde buna ihtiyaç kalmadı
-  const { axiosToken, axiosPublic } = useAxios() //* oluşturduğumuz axios örneklerini import ettik
+  // const { token } = useSelector((state) => state.auth); //* global alandan token bilgisini alıyoruz, useAxios custom hooku sayesinde buna ihtiyaç kalmadı
+  const { axiosToken, axiosPublic } = useAxios(); //* oluşturduğumuz axios örneklerini import ettik
 
   // const login = async (userData) => {
   //   dispatch(fetchStart()); //? pending işlemi için dispatch yayınladık, AuthSlice içerisinde bu fonksiyonu kullanacağız
@@ -38,18 +39,18 @@ const useApiRequest = () => {
   //   }
   // };
   const login = async (userData) => {
-    dispatch(fetchStart())
+    dispatch(fetchStart());
     try {
-      const { data } = await axiosPublic.post("/auth/login/", userData)
-      dispatch(loginSuccess(data))
-      toastSuccessNotify("Login işlemi başarılı")
-      navigate("/stock")
+      const { data } = await axiosPublic.post("/auth/login/", userData);
+      dispatch(loginSuccess(data));
+      toastSuccessNotify("Login is successful");
+      navigate("/stock");
     } catch (error) {
-      dispatch(fetchFail())
-      toastErrorNotify("Login başarısız oldu")
+      dispatch(fetchFail());
+      toastErrorNotify("Login is not successful");
       // console.log(error)
     }
-  }
+  };
 
   // const register = async (userData) => {
   //   dispatch(fetchStart()); //? pending işlemi için
@@ -68,15 +69,15 @@ const useApiRequest = () => {
   // };
 
   const register = async (userData) => {
-    dispatch(fetchStart())
+    dispatch(fetchStart());
     try {
-      const { data } = await axiosPublic.post("/users/", userData)
-      dispatch(registerSuccess(data))
-      navigate("/stock")
+      const { data } = await axiosPublic.post("/users/", userData);
+      dispatch(registerSuccess(data));
+      navigate("/stock");
     } catch (error) {
-      dispatch(fetchFail())
+      dispatch(fetchFail());
     }
-  }
+  };
 
   // const logout = async () => {
   //   dispatch(fetchStart());
@@ -94,19 +95,42 @@ const useApiRequest = () => {
   // };
 
   const logout = async () => {
-    dispatch(fetchStart())
+    dispatch(fetchStart());
     try {
-      await axiosToken.get("/auth/logout")
-      dispatch(logoutSuccess())
-      toastSuccessNotify("Logout işlemi başarılı");
+      await axiosToken.get("/auth/logout");
+      dispatch(logoutSuccess());
+      toastSuccessNotify("Logout is successful");
       // navigate("/");
     } catch (error) {
-      dispatch(fetchFail())
-      toastErrorNotify("Logout başarısız oldu");
+      dispatch(fetchFail());
+      toastErrorNotify("Logout is not successful");
     }
-  }
+  };
 
-  return { login, register, logout };
+  const getUser = async () => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosToken.get("/users/");
+      console.log(data);
+      dispatch(getUserSuccess(data));
+      // console.log(data);
+    } catch (error) {
+      dispatch(fetchFail());
+    }
+  };
+  const updateUser = async (userData, _id) => {
+    dispatch(fetchStart());
+    try {
+      const { data } = await axiosToken.put(`/users/${_id}`, userData);
+      toastSuccessNotify(`Update is successful!`);
+      // dispatch(getUserSuccess(data));
+    } catch (error) {
+      dispatch(fetchFail());
+      toastErrorNotify(`Oops! there is something wrong while updating`);
+    }
+  };
+
+  return { login, register, logout, getUser, updateUser };
 };
 
 export default useApiRequest;

@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import StoreIcon from "@mui/icons-material/Store";
+import StarsIcon from "@mui/icons-material/Stars";
 import { useSelector } from "react-redux";
 import useStockRequest from "../services/useStockRequest";
 // import loadingGif from "../assets/loading.gif";
@@ -75,7 +75,7 @@ const Brands = () => {
             arrow
           >
             <Box>
-              <StoreIcon />
+              <StarsIcon />
               <sup
                 style={{
                   color: "orange",

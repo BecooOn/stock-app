@@ -10,7 +10,7 @@ import { btnStyle } from "../../styles/globalStyles";
 export default function SalesTable({ handleOpen, setInfo }) {
   const { deleteData } = useStockRequest();
   const { sales } = useSelector((state) => state.stock);
-  console.log(sales);
+  // console.log(sales);
   const getRowId = (row) => row._id;
   const columns = [
     {

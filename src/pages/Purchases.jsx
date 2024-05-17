@@ -3,7 +3,7 @@ import useStockRequest from "../services/useStockRequest";
 import { useSelector } from "react-redux";
 import Button from "@mui/material/Button";
 import { Box, Tooltip } from "@mui/material";
-import Inventory2Icon from "@mui/icons-material/Inventory2";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PurchasesTable from "../components/purchasesComponents/PurchasesTable";
 import PurchasesModal from "../components/purchasesComponents/PurchasesModal";
 import TableSkeleton, {
@@ -67,7 +67,7 @@ const Purchases = () => {
             arrow
           >
             <Box>
-              <Inventory2Icon />
+              <ShoppingCartIcon />
               <sup
                 style={{
                   color: "orange",

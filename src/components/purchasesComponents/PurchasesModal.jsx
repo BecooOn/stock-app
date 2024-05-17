@@ -50,10 +50,10 @@ export default function PurchasesModal({ handleClose, open, info, setInfo }) {
       updateData("purchases", information);
     } else {
       //? post işlemi
-      console.log(info);
+      // console.log(info);
       const { firmId, brandId, productId, quantity, price } = info;
       let information = { firmId, brandId, productId, quantity, price };
-      console.log(information);
+      // console.log(information);
       createData("purchases", information);
     }
 

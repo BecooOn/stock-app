@@ -14,12 +14,22 @@ export default function ProductTable() {
   // const a = products.map((product) => product.categoryId.name);
   // console.log(a);
   const columns = [
-    { field: "_id", headerName: "#", minWidth: 150, flex: 1.4 },
+    {
+      field: "createdAt",
+      headerName: "Date",
+      sortable: true,
+      minWidth: 150,
+      flex: 1.2,
+      valueGetter: (value, row) => {
+        return new Date(row?.createdAt).toLocaleString("tr-TR");
+      },
+    },
+    { field: "_id", headerName: "ID", minWidth: 150, flex: 1.4 },
     {
       field: "categoryId", //* API'den gelen veri ile aynı isim kullanılmalıdır
       headerName: "Categories", //* Kullanıcıya gösterilecek isimi headerName e yazıyoruz. Api'den gelen isimden farklı kullanılabilir
       flex: 1, //* Sütunun ne oranda büyüyüp küçüleceği
-      minWidth: 100,
+      width: 150,
       valueGetter: (value, row) => row.categoryId?.name, //* Bu şekilde nested(iç içe) veriler olduğunda valueGetter fonksiyonu kullanmalıyız
       // valueGetter: (value) => value?.name, //* bir önceki valueGetter ile aynı işlemi yapar
     },
@@ -87,7 +97,7 @@ export default function ProductTable() {
           },
         }}
         pageSizeOptions={[5,10,20,50]}
-        checkboxSelection
+        // checkboxSelection
         disableRowSelectionOnClick
         getRowId={getRowId}
         slots={{ toolbar: GridToolbar }}
