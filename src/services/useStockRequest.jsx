@@ -55,10 +55,10 @@ const useStockRequest = () => {
   };
 
   //!-----------Verilerin güncellenmesi işlemi-----
-  const updateData = async (endpoint, datas, id) => {
+  const updateData = async (endpoint, datas) => {
     dispatch(fetchStart()); //* pending
     try {
-      await axiosToken.put(`/${endpoint}/${id}`, datas);
+      await axiosToken.put(`/${endpoint}/${datas._id}`, datas);
       toastSuccessNotify(`${endpoint} was updated successfully!`);
       getDatas(endpoint); //? Güncelleme işlemi başarılı olduktan sonra güncel verileri getirmek için
     } catch (error) {

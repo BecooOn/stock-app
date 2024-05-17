@@ -19,6 +19,7 @@ import TextField from "@mui/material/TextField";
 import BrandModal from "../components/brandComponents/BrandModal";
 import UpdateBrandModal from "../components/brandComponents/UpdateBrandModal";
 import { btnStyle } from "../styles/globalStyles";
+import { CardSkeleton, NoDataMessage } from "../components/DataFetchMessages";
 
 const Brands = () => {
   const { getDatas, deleteData } = useStockRequest();
@@ -108,21 +109,87 @@ const Brands = () => {
           sx={{ borderBottom: "3px solid black" }}
         />
       </Box>
-      {/* {loading ? (
+      {loading && (
         <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "60vh",
-          }}
+          xs={{ d: "flex" }}
+          display="flex"
+          alignItems="center"
+          justifyContent="space-evenly"
+          flexWrap="wrap"
         >
-          <img src={loadingGif} alt="gif" width={250} />
+          {filteredBrands.length === 0 ? (
+            <Typography
+              variant="body1"
+              color="red"
+              textTransform="uppercase"
+              textAlign="center"
+            >
+              No Brands Found
+            </Typography>
+          ) : (
+            filteredBrands?.map((item) => (
+              <CardSkeleton>
+                <Card
+                  key={item._id}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-around",
+                    alignItems: "center",
+                    width: 345,
+                    m: 3,
+                    py: 3,
+                    px: 1,
+                    height: 500,
+                    boxShadow: "0 0 4px black",
+                    textAlign: "center",
+                  }}
+                >
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="div"
+                    color="orange"
+                    textTransform="uppercase"
+                  >
+                    {item?.name}
+                  </Typography>
+                  <CardMedia
+                    component="img"
+                    height="250"
+                    image={item?.image}
+                    alt="img"
+                    sx={{ objectFit: "contain" }}
+                  />
+                  <CardActions>
+                    <Tooltip title={"Delete"} arrow>
+                      <Button
+                        onClick={() => deleteData("brands", item._id)}
+                        sx={btnStyle}
+                      >
+                        <DeleteForeverIcon sx={{ fontSize: "40px" }} />
+                      </Button>
+                    </Tooltip>
+                    <Tooltip title={"Update"} arrow>
+                      <ButtonBase
+                        sx={btnStyle}
+                        onClick={() => handleUpdateModal("brands", item._id)}
+                      >
+                        <EditNoteIcon sx={{ fontSize: "40px" }} />
+                      </ButtonBase>
+                    </Tooltip>
+                  </CardActions>
+                </Card>
+              </CardSkeleton>
+            ))
+          )}
         </Box>
-      ) : ( */}
-        <>
-          <BrandModal />
+      )}
+      {!loading && !allBrands.length && <NoDataMessage />}
 
+      <>
+        <BrandModal />
+        {!loading && allBrands.length > 0 && (
           <Box
             xs={{ d: "flex" }}
             display="flex"
@@ -195,8 +262,9 @@ const Brands = () => {
               ))
             )}
           </Box>
-        </>
-      
+        )}
+      </>
+
       <UpdateBrandModal
         openUpdateModal={openUpdateModal}
         setOpenUpdateModal={setOpenUpdateModal}

@@ -11,21 +11,13 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { modalStyle } from "../../styles/globalStyles";
 
-export default function PurchasesModal({ handleClose, open, info, setInfo }) {
+export default function SalesModal({ handleClose, open, info, setInfo }) {
   const { createData, updateData } = useStockRequest();
-  const { purchases, firms, products, brands } = useSelector(
+  const { sales, products, brands } = useSelector(
     (state) => state.stock
   );
   const navigate = useNavigate();
-  // const uniqueFirmID = Array.from(
-  //   new Set(purchases.map((item) => item?.firmId?._id))
-  // ); //? Firm id'lerden tekrar edenleri önlemek ve select içinde sadece bir defa görmek için
-  // const uniqueBrandsID = Array.from(
-  //   new Set(purchases.map((item) => item?.brandId?._id))
-  // ); //? brand id'lerden tekrar edenleri önlemek ve select içinde sadece bir defa görmek için
-  // const uniqueProductID = Array.from(
-  //   new Set(purchases.map((item) => item?.productId?._id))
-  // ); //? brand id'lerden tekrar edenleri önlemek ve select içinde sadece bir defa görmek için
+  console.log(sales)
 
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
@@ -39,7 +31,6 @@ export default function PurchasesModal({ handleClose, open, info, setInfo }) {
       // console.log(info);
       const { firmId, brandId, productId, quantity, price, _id } = info;
       let information = {
-        firmId: firmId?._id,
         brandId: brandId?._id,
         productId: productId?._id,
         quantity,
@@ -47,21 +38,18 @@ export default function PurchasesModal({ handleClose, open, info, setInfo }) {
         _id,
       };
       // console.log(information);
-      updateData("purchases", information);
+      updateData("sales", information);
     } else {
-      //? post işlemi
       console.log(info);
-      const { firmId, brandId, productId, quantity, price } = info;
-      let information = { firmId, brandId, productId, quantity, price };
+      const { brandId, productId, quantity, price } = info;
+      let information = { brandId, productId, quantity, price };
       console.log(information);
-      createData("purchases", information);
+      createData("sales", information);
     }
 
-    //? modal ı kapatmak için
     handleClose();
   };
 
-  // console.log(info);
   return (
     <div>
       <Modal
@@ -92,32 +80,6 @@ export default function PurchasesModal({ handleClose, open, info, setInfo }) {
             onSubmit={handleSubmit}
           >
             <FormControl sx={{ my: 2, width: "100%" }}>
-              <InputLabel id="firmId">Firm</InputLabel>
-              <Select
-                labelId="firmId"
-                name="firmId"
-                id="firmId"
-                value={info?.firmId?._id || info?.firmId}
-                label="Firm"
-                onChange={handleChange}
-                required
-              >
-                {firms?.map((item) => (
-                  <MenuItem key={item._id} value={item._id}>
-                    {item.name}
-                  </MenuItem>
-                ))}
-                <MenuItem
-                  sx={{ borderTop: "1px solid gray" }}
-                  onClick={() => navigate("/stock/firms")}
-                >
-                  <AddIcon />
-                  Add New Firm
-                </MenuItem>
-              </Select>
-            </FormControl>
-
-            <FormControl sx={{ my: 2, width: "100%" }}>
               <InputLabel id="brandId">Brand</InputLabel>
               <Select
                 labelId="brandId"
@@ -128,19 +90,6 @@ export default function PurchasesModal({ handleClose, open, info, setInfo }) {
                 onChange={handleChange}
                 required
               >
-                {/* {uniqueBrandsID.map((brandId) => {
-                  const brand = purchases.find(
-                    (purchase) => purchase?.brandId?._id === brandId
-                  );
-                  return (
-                    <MenuItem
-                      key={brand?.brandId?._id}
-                      value={brand?.brandId?._id}
-                    >
-                      {brand?.brandId?.name}
-                    </MenuItem>
-                  );
-                })} */}
                 {brands?.map((item) => {
                   return (
                     <MenuItem key={item._id} value={item._id}>
@@ -169,19 +118,6 @@ export default function PurchasesModal({ handleClose, open, info, setInfo }) {
                 onChange={handleChange}
                 required
               >
-                {/* {uniqueProductID.map((productId) => {
-                  const product = purchases.find(
-                    (purchase) => purchase?.productId?._id === productId
-                  );
-                  return (
-                    <MenuItem
-                      key={product?.productId?._id}
-                      value={product?.productId?._id}
-                    >
-                      {product?.productId?.name}
-                    </MenuItem>
-                  );
-                })} */}
                 {products?.map((item) => {
                   return (
                     <MenuItem key={item._id} value={item._id}>
@@ -222,7 +158,7 @@ export default function PurchasesModal({ handleClose, open, info, setInfo }) {
               required
             />
             <Button variant="contained" type="submit">
-              {info?._id ? "UPDATE PURCHASE" : "ADD NEW PURCHASE"}
+              {info?._id ? "UPDATE SALES" : "ADD NEW SALES"}
             </Button>
           </Box>
         </Box>

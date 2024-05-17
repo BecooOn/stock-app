@@ -19,6 +19,7 @@ import FirmModal from "../components/firmComponents/FirmModal";
 import UpdateFirmModal from "../components/firmComponents/UpdateFirmModal";
 import TextField from "@mui/material/TextField";
 import { btnStyle } from "../styles/globalStyles";
+import { CardSkeleton, NoDataMessage } from "../components/DataFetchMessages";
 
 const Firms = () => {
   const { getDatas, deleteData } = useStockRequest();
@@ -111,21 +112,98 @@ const Firms = () => {
           sx={{ borderBottom: "3px solid black" }}
         />
       </Box>
-      {/* {loading ? (
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "60vh",
-          }}
-        >
-          <img src={loadingGif} alt="gif" width={250} />
-        </Box>
-      ) : ( */}
-        <>
-          <FirmModal />
-
+      <>
+        <FirmModal />
+        {loading && (
+          <Box
+            xs={{ d: "flex" }}
+            display="flex"
+            alignItems="center"
+            justifyContent="space-evenly"
+            flexWrap="wrap"
+          >
+            {filteredFirms.length === 0 ? (
+              <Typography
+                variant="body1"
+                color="red"
+                textTransform="uppercase"
+                textAlign="center"
+              >
+                No Firms Found
+              </Typography>
+            ) : (
+              filteredFirms?.map((item) => (
+                <CardSkeleton>
+                  <Card
+                    key={item._id}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-around",
+                      alignItems: "center",
+                      maxWidth: 345,
+                      width: 300,
+                      m: 3,
+                      py: 3,
+                      px: 1,
+                      height: 550,
+                      maxHeight: 650,
+                      boxShadow: "0 0 4px black",
+                      textAlign: "center",
+                    }}
+                  >
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="div"
+                      color="orange"
+                      textTransform="uppercase"
+                    >
+                      {item?.name}
+                    </Typography>
+                    <CardMedia
+                      component="img"
+                      image={item?.image}
+                      alt="img"
+                      sx={{ objectFit: "contain", height: "150px" }}
+                    />
+                    <CardContent>
+                      <Typography variant="body2" color="text.secondary">
+                        <span style={{ fontWeight: "bold" }}>Address:</span>
+                        {item?.address}
+                      </Typography>
+                    </CardContent>
+                    <CardContent>
+                      <Typography variant="body2" color="text.secondary">
+                        {item?.phone}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Tooltip title={"Delete"} arrow>
+                        <Button
+                          onClick={() => deleteData("firms", item._id)}
+                          sx={btnStyle}
+                        >
+                          <DeleteForeverIcon sx={{ fontSize: "40px" }} />
+                        </Button>
+                      </Tooltip>
+                      <Tooltip title={"Update"} arrow>
+                        <Button
+                          sx={btnStyle}
+                          onClick={() => handleUpdateModal("firms", item._id)}
+                        >
+                          <EditNoteIcon sx={{ fontSize: "40px" }} />
+                        </Button>
+                      </Tooltip>
+                    </CardActions>
+                  </Card>
+                </CardSkeleton>
+              ))
+            )}
+          </Box>
+        )}
+        {!loading && !allFirms.length && <NoDataMessage />}
+        {!loading && allFirms.length > 0 && (
           <Box
             xs={{ d: "flex" }}
             display="flex"
@@ -210,8 +288,9 @@ const Firms = () => {
               ))
             )}
           </Box>
-        </>
-      
+        )}
+      </>
+
       <UpdateFirmModal
         openUpdateModal={openUpdateModal}
         setOpenUpdateModal={setOpenUpdateModal}

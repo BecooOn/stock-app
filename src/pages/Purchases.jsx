@@ -6,12 +6,19 @@ import { Box, Tooltip } from "@mui/material";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import PurchasesTable from "../components/purchasesComponents/PurchasesTable";
 import PurchasesModal from "../components/purchasesComponents/PurchasesModal";
+import TableSkeleton, {
+  ErrorMessage,
+  NoDataMessage,
+} from "../components/DataFetchMessages";
 
 const Purchases = () => {
   const { getDatas } = useStockRequest();
-  const { purchases } = useSelector((state) => state.stock);
+  const { purchases, loading, error } = useSelector((state) => state.stock);
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = (purchase) => {
+    setInfo(purchase); // Satın alma verilerini info state'ine ayarlamak için
+    setOpen(true);
+  };
 
   const [info, setInfo] = useState({
     firmId: "",
@@ -20,7 +27,7 @@ const Purchases = () => {
     quantity: 0,
     price: 0,
   });
-
+  // console.log(info);
   const handleClose = () => {
     setOpen(false);
     setInfo({
@@ -35,9 +42,10 @@ const Purchases = () => {
   useEffect(() => {
     getDatas("purchases");
     //? Güncel veriler için purchases da diğer verilerin de getirilmesi gerekiyor
+    getDatas("firms");
     getDatas("products");
-    getDatas("categories");
     getDatas("brands");
+    getDatas("categories");
   }, []);
 
   return (
@@ -88,15 +96,17 @@ const Purchases = () => {
       >
         New Purchases
       </Button>
-
+      {loading && <TableSkeleton />}
+      {!loading && !purchases?.length && <NoDataMessage />}
+      {!loading && purchases?.length > 0 && (
+        <PurchasesTable handleOpen={handleOpen} setInfo={setInfo} />
+      )}
       <PurchasesModal
         handleClose={handleClose}
         open={open}
         info={info}
         setInfo={setInfo}
       />
-
-      <PurchasesTable handleOpen={handleOpen} setInfo={setInfo}/>
     </Box>
   );
 };

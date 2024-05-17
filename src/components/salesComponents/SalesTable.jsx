@@ -7,11 +7,11 @@ import { useSelector } from "react-redux";
 import useStockRequest from "../../services/useStockRequest";
 import { btnStyle } from "../../styles/globalStyles";
 
-export default function PurchasesTable({ handleOpen, setInfo }) {
+export default function SalesTable({ handleOpen, setInfo }) {
   const { deleteData } = useStockRequest();
-  const { purchases } = useSelector((state) => state.stock);
-
-  const getRowId = (row) => row._id; //? Data grid de satırlar unique id'lere sahip olması gerekiyor.Bu nedenle bu fonksiyonu yazıyoruz ve DataGrid comp. içerisinde kullanıyoruz. Esasında API den farklı id gelmesine rağmen APı den gelen _id isimli olduğu için DataGrid bu farklılığı algılamıyor
+  const { sales } = useSelector((state) => state.stock);
+  console.log(sales);
+  const getRowId = (row) => row._id;
   const columns = [
     {
       field: "createdAt",
@@ -19,21 +19,9 @@ export default function PurchasesTable({ handleOpen, setInfo }) {
       sortable: true,
       minWidth: 150,
       flex: 1.2,
-      valueGetter: (value,row) => {
+      valueGetter: (value, row) => {
         return new Date(row?.createdAt).toLocaleString("tr-TR");
       },
-    },
-    {
-      field: "firmId", //* API'den gelen veri ile aynı isim kullanılmalıdır
-      headerName: "Firm", //* Kullanıcıya gösterilecek isimi headerName e yazıyoruz. Api'den gelen isimden farklı kullanılabilir
-      sortable: true,
-      flex: 1, //* Sütunun ne oranda büyüyüp küçüleceği
-      minWidth: 160,
-      valueGetter: (value, row) => row?.firmId?.name, //? row içerisindeki firmId içindeki firmanın name'i
-      // valueGetter: (value) => value?.name, //? bir önceki valueGetter ile aynı işlemi yapar
-      // renderCell: ({ row }) => {
-      //   return new Date(row.createdAt).toLocaleString("tr-TR")
-      // }, //? valueGetter ile aynı işlemi yapar
     },
     {
       field: "brandId",
@@ -44,7 +32,7 @@ export default function PurchasesTable({ handleOpen, setInfo }) {
       width: 160,
       flex: 1,
       editable: true,
-      valueGetter: (value, row) => row?.brandId?.name, //* row içerisindeki brandId içindeki markanın name'i
+      valueGetter: (value, row) => row?.brandId?.name,
     },
     {
       field: "productId",
@@ -55,7 +43,7 @@ export default function PurchasesTable({ handleOpen, setInfo }) {
       flex: 1,
       miWidth: 160,
       editable: true,
-      valueGetter: (value, row) => row?.productId?.name, //* row içerisindeki productId içindeki ürünün name'i
+      valueGetter: (value, row) => row?.productId?.name,
     },
     {
       field: "quantity",
@@ -65,7 +53,6 @@ export default function PurchasesTable({ handleOpen, setInfo }) {
       align: "center",
       width: 120,
       flex: 1.2,
-      //   valueGetter: (value, row) => row.quantity, //* stokta bulunan miktar
     },
     {
       field: "price",
@@ -75,7 +62,6 @@ export default function PurchasesTable({ handleOpen, setInfo }) {
       align: "center",
       width: 120,
       flex: 1.2,
-      //   valueGetter: (value, row) => row.price, //* fiyat bilgisi
     },
     {
       field: "amount",
@@ -85,7 +71,6 @@ export default function PurchasesTable({ handleOpen, setInfo }) {
       align: "center",
       width: 120,
       flex: 1.2,
-      //   valueGetter: (value, row) => row.amount, //* toplam miktar
     },
     {
       field: "actions",
@@ -93,9 +78,7 @@ export default function PurchasesTable({ handleOpen, setInfo }) {
       minWidth: 40,
       headerAlign: "center",
       align: "center",
-      renderCell: ({
-        row: { brandId, productId, quantity, price, firmId, _id },
-      }) => {
+      renderCell: ({ row: { brandId, productId, quantity, price, _id } }) => {
         return [
           <GridActionsCellItem
             key={"edit"}
@@ -103,7 +86,7 @@ export default function PurchasesTable({ handleOpen, setInfo }) {
             label="Edit"
             onClick={() => {
               handleOpen();
-              setInfo({ _id, brandId, productId, quantity, price, firmId });
+              setInfo({ _id, brandId, productId, quantity, price });
             }}
             sx={btnStyle}
           />,
@@ -111,7 +94,7 @@ export default function PurchasesTable({ handleOpen, setInfo }) {
             key={"delete"}
             icon={<DeleteForeverIcon />}
             label="Delete"
-            onClick={() => deleteData("purchases", _id)}
+            onClick={() => deleteData("sales", _id)}
             sx={btnStyle}
           />,
         ];
@@ -123,8 +106,8 @@ export default function PurchasesTable({ handleOpen, setInfo }) {
     <Box sx={{ width: "100%" }}>
       <DataGrid
         autoHeight
-        rows={purchases} //? API den gelen satın alma bilgilerini satırlara aktarıyoruz
-        columns={columns} //? sütun bilgilerini yukarıda tanımladık
+        rows={sales}
+        columns={columns}
         initialState={{
           pagination: {
             paginationModel: {
