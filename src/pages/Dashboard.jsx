@@ -88,13 +88,13 @@ function Dashboard(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{display:"flex",alignItems:"center", flexGrow: 1,gap:2 }}>
+          <Typography variant="h6" noWrap component="div" sx={{display:"flex",alignItems:"center", flexGrow: 1,gap:1 }}>
             <img
               src={logo}
               alt="Logo"
               style={{ width: "50px", height: "50px", borderRadius: "50%",backgroundColor:"pink" }}
             />
-            <span>Stock App</span>
+            <span>'s INVENTORY</span>
           </Typography>
           {user && (
             <Box sx={{ flexGrow: 0 }}>

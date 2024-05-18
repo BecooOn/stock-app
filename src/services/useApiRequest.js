@@ -121,8 +121,9 @@ const useApiRequest = () => {
   const updateUser = async (userData, _id) => {
     dispatch(fetchStart());
     try {
-      const { data } = await axiosToken.put(`/users/${_id}`, userData);
+      await axiosToken.patch(`/users/${_id}`, userData);
       toastSuccessNotify(`Update is successful!`);
+      getUser();
       // dispatch(getUserSuccess(data));
     } catch (error) {
       dispatch(fetchFail());

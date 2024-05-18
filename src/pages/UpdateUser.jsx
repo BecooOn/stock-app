@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import useApiRequest from "../services/useApiRequest";
@@ -7,30 +7,20 @@ const UpdateUser = () => {
   const { user, email, password, firstName, lastName, _id } = useSelector(
     (state) => state.auth
   );
-
+  let username = user;
+  // console.log(username);
+  const { getUser, updateUser } = useApiRequest();
   const [info, setInfo] = useState({
-    user: user || "",
+    username: username || "",
     email: email || "",
     password: password || "",
     firstName: firstName || "",
     lastName: lastName || ""
   });
 
-  const { getUser, updateUser } = useApiRequest();
-
   useEffect(() => {
     getUser();
   }, []);
-
-  useEffect(() => {
-    setInfo({
-      user,
-      email,
-      password,
-      firstName,
-      lastName,
-    });
-  }, [user, email, password, firstName, lastName]);
 
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
@@ -38,15 +28,7 @@ const UpdateUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(info);
     updateUser(info,_id);
-    setInfo({
-        user:"",
-        email:"",
-        password:"",
-        firstName:"",
-        lastName:""
-      });
   };
 
   return (
@@ -58,16 +40,23 @@ const UpdateUser = () => {
         margin: "auto"
       }}
     >
-      <div style={{ height: "40px" }}></div>
+      <Typography
+              variant="body1"
+              color="red"
+              textAlign="center"
+              sx={{my:4,fontSize:"24px"}}
+            >
+              Change your informations
+            </Typography>
       <form onSubmit={handleSubmit}>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
           <TextField
             label="User Name"
-            name="user"
-            id="user"
+            name="username"
+            id="username"
             type="text"
             variant="outlined"
-            value={info.user}
+            value={info.username}
             onChange={handleChange}
           />
           <TextField

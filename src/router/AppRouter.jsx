@@ -11,6 +11,7 @@ import Firms from "../pages/Firms";
 import Products from "../pages/Products";
 import Purchases from "../pages/Purchases";
 import UpdateUser from "../pages/UpdateUser";
+import NotFound from "../pages/NotFound";
 const AppRouter = () => {
   return (
     <Router>
@@ -32,6 +33,8 @@ const AppRouter = () => {
             <Route path="user" element={<UpdateUser />} />
           </Route>
         </Route>
+        <Route path="*" element={<NotFound />} />
+
       </Routes>
     </Router>
   );
