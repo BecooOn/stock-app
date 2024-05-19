@@ -9,7 +9,6 @@ import logo from "../assets/logo.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
 import useApiRequest from "../services/useApiRequest";
 import MenuListComp from "../components/MenuListComp";
@@ -88,11 +87,21 @@ function Dashboard(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{display:"flex",alignItems:"center", flexGrow: 1,gap:1 }}>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ display: "flex", alignItems: "center", flexGrow: 1, gap: 1 }}
+          >
             <img
               src={logo}
               alt="Logo"
-              style={{ width: "50px", height: "50px", borderRadius: "50%",backgroundColor:"pink" }}
+              style={{
+                width: "50px",
+                height: "50px",
+                borderRadius: "50%",
+                backgroundColor: "pink",
+              }}
             />
             <span>'s INVENTORY</span>
           </Typography>
@@ -109,10 +118,14 @@ function Dashboard(props) {
                       gap: 1,
                     }}
                   >
-                    <Avatar alt="" src="" />
-                    <span style={{ color: "white", fontSize: "16px" }}>
-                      {email}
-                    </span>
+                    <Avatar sx={{ backgroundColor: "pink" }}>
+                      {user.slice(0, 1).toUpperCase()}
+                    </Avatar>
+                    <Tooltip title={user}>
+                      <span style={{ color: "white", fontSize: "16px" }}>
+                        {email}
+                      </span>
+                    </Tooltip>
                   </Box>
                 </IconButton>
               </Tooltip>

@@ -2,13 +2,13 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import LockIcon from "@mui/icons-material/Lock";
-import image from "../assets/data.png";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 import RegisterForm, { registerSchema } from "../components/RegisterForm";
 import { Formik } from "formik";
 import useApiRequest from "../services/useApiRequest";
+import logo from "../assets/logo.png"
 
 const Register = () => {
   const { register } = useApiRequest();
@@ -19,15 +19,16 @@ const Register = () => {
         container
         justifyContent="center"
         direction="row-reverse"
-        rowSpacing={{ sm: 3 }}
-        sx={{
-          height: "100vh",
-          p: 2,
-        }}
+        rowSpacing={{ sm: 1 }}
       >
-        <Grid item xs={12}>
-          <Typography variant="h3" color="primary" align="center">
-            STOCK APP
+        <Grid item xs={12} mb={3} sx={{alignContent:"center"}}>
+        <Typography variant="h5" noWrap component="div" sx={{display:"flex",alignItems:"center", flexGrow: 1,gap:1,justifyContent:"center",borderBottom:"3px dotted gray",p:2 }}>
+            <img
+              src={logo}
+              alt="Logo"
+              style={{ width: "80px", height: "80px", borderRadius: "50%" }}
+            />
+            <span>'s INVENTORY</span>
           </Typography>
         </Grid>
 
@@ -74,11 +75,11 @@ const Register = () => {
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={7} md={6} marginTop="30px">
+        {/* <Grid item xs={12} sm={7} md={6} marginTop="30px">
           <Container>
-            <img src={image} alt="img" width="100%"/>
+            <img src={logo} alt="img" style={{width:"80%",borderRadius:"50%"}}/>
           </Container>
-        </Grid>
+        </Grid> */}
       </Grid>
     </Container>
   );

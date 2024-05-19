@@ -12,7 +12,7 @@ import TableSkeleton, {
 } from "../components/DataFetchMessages";
 
 const Purchases = () => {
-  const { getDatas } = useStockRequest();
+  const { getDatas, promiseAllDatas } = useStockRequest();
   const { purchases, loading, error } = useSelector((state) => state.stock);
   const [open, setOpen] = useState(false);
   const handleOpen = (purchase) => {
@@ -40,12 +40,14 @@ const Purchases = () => {
   };
 
   useEffect(() => {
-    getDatas("purchases");
+    // getDatas("purchases");
     //? Güncel veriler için purchases da diğer verilerin de getirilmesi gerekiyor
-    getDatas("firms");
-    getDatas("products");
-    getDatas("brands");
-    getDatas("categories");
+    // getDatas("firms");
+    // getDatas("products");
+    // getDatas("brands");
+    // getDatas("categories");
+    //? Promise.all ile tüm verileri senkronize olarak getiriyoruz
+    promiseAllDatas();
   }, []);
 
   return (

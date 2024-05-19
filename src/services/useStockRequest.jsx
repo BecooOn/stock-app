@@ -5,6 +5,7 @@ import useAxios from "./useAxios";
 import {
   fetchStart,
   getDataSuccess,
+  promiseAllDatasSuccess,
   fetchFail,
 } from "../features/getDataSlice";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
@@ -37,7 +38,9 @@ const useStockRequest = () => {
       getDatas(endpoint); //? oluşturma işlemi başarılı olduktan sonra güncel verileri getirmek için
     } catch (error) {
       dispatch(fetchFail()); //? rejected
-      toastErrorNotify(`Oops! there is something wrong while adding for ${endpoint}`);
+      toastErrorNotify(
+        `Oops! there is something wrong while adding for ${endpoint}`
+      );
     }
   };
 
@@ -50,7 +53,9 @@ const useStockRequest = () => {
       getDatas(endpoint); //? silme işlemi başarılı olduktan sonra güncel verileri getirmek için
     } catch (error) {
       dispatch(fetchFail());
-      toastErrorNotify(`Oops! there is something wrong while deleting for ${endpoint}`);
+      toastErrorNotify(
+        `Oops! there is something wrong while deleting for ${endpoint}`
+      );
     }
   };
 
@@ -63,11 +68,36 @@ const useStockRequest = () => {
       getDatas(endpoint); //? Güncelleme işlemi başarılı olduktan sonra güncel verileri getirmek için
     } catch (error) {
       dispatch(fetchFail()); //* rejected
-      toastErrorNotify(`Oops! there is something wrong while updating for ${endpoint}`);
+      toastErrorNotify(
+        `Oops! there is something wrong while updating for ${endpoint}`
+      );
     }
   };
 
-  return { getDatas, deleteData, createData, updateData }; //* export işlemi için useStockRequest a return ettik. useStockRequest kullanacığımız yerde import ediyoruz ve ilgili dosyada useStockRequest destr edip kullanıyoruz.
+  //!-------------Promise.all ile verileri senkronize olarak çağırmak için------------
+  const promiseAllDatas = async () => {
+    dispatch(fetchStart());
+    try {
+      const allPromise = await Promise.all([
+        axiosToken("/purchases"),
+        axiosToken("/firms"),
+        axiosToken("/products"),
+        axiosToken("/brands"),
+        axiosToken("/categories"),
+      ]);
+      const purchases = allPromise[0].data.data;
+      const firms = allPromise[1].data.data;
+      const products = allPromise[2].data.data;
+      const brands = allPromise[3].data.data;
+      const categories = allPromise[4].data.data;
+      dispatch(promiseAllDatasSuccess({purchases,firms,products,brands,categories}))
+      // console.log(allPromise[0].data.data);
+    } catch (error) {
+      dispatch(fetchFail())
+    }
+  };
+
+  return { getDatas, deleteData, createData, updateData, promiseAllDatas }; //* export işlemi için useStockRequest a return ettik. useStockRequest kullanacığımız yerde import ediyoruz ve ilgili dosyada useStockRequest destr edip kullanıyoruz.
 };
 
 export default useStockRequest;

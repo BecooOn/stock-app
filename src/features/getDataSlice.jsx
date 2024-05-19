@@ -25,6 +25,14 @@ const getDataSlice = createSlice({
       state[payload.key] = payload.data;
       // state.error = false; //* pending de false olduğu için burada gerekli değil; çünkü her seferinde bu case'leri çağırıyoruz
     },
+    promiseAllDatasSuccess:(state,{payload})=>{
+      state.loading = false;
+      state.purchases = payload.purchases;
+      state.firms = payload.firms;
+      state.products = payload.products;
+      state.brands = payload.brands;
+      state.categories = payload.categories;
+    },
     fetchFail: (state) => {
       //! rejected için
       state.loading = false;
@@ -33,5 +41,5 @@ const getDataSlice = createSlice({
   },
 });
 
-export const { fetchStart, getDataSuccess, fetchFail } = getDataSlice.actions;
+export const { fetchStart, getDataSuccess,promiseAllDatasSuccess, fetchFail } = getDataSlice.actions;
 export default getDataSlice.reducer;
