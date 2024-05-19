@@ -7,10 +7,10 @@ Check out the live demo of the application [here](https://stock-app-becoo.netlif
 
 ## Features
 
-- Stock Management: Efficiently manage the company's stock information.
-- CRUD Operations: Add, update, edit, and delete products with ease.
-- Data Visualization: Visualize stock movements through interactive graphs.
-- User-Friendly Interface: Designed for ease of use and intuitive navigation.
+- **Stock Management**: Efficiently manage the company's stock information.
+- **CRUD Operations**: Add, update, edit, and delete products with ease.
+- **Data Visualization**: Visualize stock movements through interactive graphs.
+- **User-Friendly Interface**: Designed for ease of use and intuitive navigation.
 
 ## Installation
 To get started with the Stock App, follow these steps:
@@ -36,10 +36,10 @@ yarn start
 
 ## Usage
 
-1. Admin Panel: Access the admin panel to manage the company's stock information.
-2. Product Management: Add, update, edit, or delete products as needed.
-3. Graphical Insights: Use the graphing tools to visualize stock movements.
-4. User Management: Manage user accounts and configure authorization settings.
+1. **Admin Panel**: Access the admin panel to manage the company's stock information.
+2. **Product Management**: Add, update, edit, or delete products as needed.
+3. **Graphical Insights**: Use the graphing tools to visualize stock movements.
+4. **User Management**: Manage user accounts and configure authorization settings.
 
 
 ## Project Skeleton
@@ -122,21 +122,20 @@ SOLUTION
 
 ## Technologies I used
 
-- React: A JavaScript library for building user interfaces.
-- Redux Toolkit: Provides a standardized way to write Redux logic, including store configuration and slice management.
-- React Redux: Official React bindings for Redux.
-- Axios: Promise-based HTTP client for making API requests.
-- React Router DOM: Declarative routing for React applications.
-- Material UI: A popular React UI framework with pre-styled components.
-- Emotion: A library designed for writing CSS styles with JavaScript.
-- Formik: Form management library for React.
-- Yup: JavaScript schema builder for value parsing and validation.
-- React Toastify: Library for creating beautiful toast notifications.
-- Redux Persist: Persist and rehydrate a Redux store.
-- Tailwind CSS: Utility-first CSS framework for rapid UI development.
-- MUI X Data Grid: Powerful data grid component from Material UI.
-- MUI X Charts: Charting library from Material UI.
-- @tremor/react: React components for building dashboards and data visualizations.
+- **React**: A JavaScript library for building user interfaces.
+- **Redux** Toolkit: Provides a standardized way to write Redux logic, including store configuration and slice management.
+- **React Redux**: Official React bindings for Redux.
+- **Axios**: Promise-based HTTP client for making API requests.
+- **React Router DOM**: Declarative routing for React applications.
+- **Material UI**: A popular React UI framework with pre-styled components.
+- **Formik**: Form management library for React.
+- **Yup**: JavaScript schema builder for value parsing and validation.
+- **React Toastify**: Library for creating beautiful toast notifications.
+- **Redux Persist**: Persist and rehydrate a Redux store.
+- **Tailwind CSS**: Utility-first CSS framework for rapid UI development.
+- **MUI X Data Grid**: Powerful data grid component from Material UI.
+- **MUI X Charts**: Charting library from Material UI.
+- **@tremor/react**: React components for building dashboards and data visualizations.
 
 ## Dev Tools
 
