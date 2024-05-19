@@ -18,7 +18,7 @@ import useStockRequest from "../services/useStockRequest";
 import TextField from "@mui/material/TextField";
 import BrandModal from "../components/brandComponents/BrandModal";
 import UpdateBrandModal from "../components/brandComponents/UpdateBrandModal";
-import { btnStyle } from "../styles/globalStyles";
+import { btnStyle, pageHeaders } from "../styles/globalStyles";
 import { CardSkeleton, NoDataMessage } from "../components/DataFetchMessages";
 
 const Brands = () => {
@@ -64,11 +64,11 @@ const Brands = () => {
           justifyContent: "space-between",
           alignItems: "center",
           borderBottom: "4px solid black",
-          p: 0,
+          p: 2,
         }}
       >
         <div style={{ width: "120px" }}></div>
-        <h1 style={{ textAlign: "center" }}>Brands</h1>
+        <h1 style={pageHeaders}>Brands</h1>
         <Box>
           <Tooltip
             title={`Number of Firms: ${allBrands ? allBrands.length : 0}`}

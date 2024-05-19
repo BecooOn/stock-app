@@ -18,7 +18,7 @@ import useStockRequest from "../services/useStockRequest";
 import FirmModal from "../components/firmComponents/FirmModal";
 import UpdateFirmModal from "../components/firmComponents/UpdateFirmModal";
 import TextField from "@mui/material/TextField";
-import { btnStyle } from "../styles/globalStyles";
+import { btnStyle, pageHeaders } from "../styles/globalStyles";
 import { CardSkeleton, NoDataMessage } from "../components/DataFetchMessages";
 
 const Firms = () => {
@@ -65,11 +65,11 @@ const Firms = () => {
           justifyContent: "space-between",
           alignItems: "center",
           borderBottom: "4px solid black",
-          p: 0,
+          p: 2,
         }}
       >
         <div style={{ width: "120px" }}></div>
-        <h1 style={{ textAlign: "center" }}>Firms</h1>
+        <h1 style={pageHeaders}>Firms</h1>
         <Box>
           <Tooltip
             title={`Number of Firms: ${allFirms ? allFirms.length : 0}`}

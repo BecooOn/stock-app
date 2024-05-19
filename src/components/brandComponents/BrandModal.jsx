@@ -7,7 +7,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import useStockRequest from "../../services/useStockRequest";
 import { Formik, Form } from "formik";
 import { object, string } from "yup";
-import { modalStyle } from "../../styles/globalStyles";
+import { modalStyle, newBtn } from "../../styles/globalStyles";
 
 const BrandModal = () => {
   const [open, setOpen] = React.useState(false);
@@ -22,18 +22,7 @@ const BrandModal = () => {
 
   return (
     <div>
-      <Button
-        onClick={handleOpen}
-        variant="contained"
-        sx={{
-          position: "absolute",
-          top: 35,
-          left: 0,
-          "&:hover": {
-            backgroundColor: "red",
-          },
-        }}
-      >
+      <Button onClick={handleOpen} variant="contained" sx={newBtn}>
         NEW BRAND
       </Button>
       <Modal

@@ -16,7 +16,7 @@ const Charts = () => {
   }));
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 my-14">
-      <div className="border border-2 p-4">
+      <div className="border-2 p-4">
         <p>Sales</p>
         <AreaChart
           className="h-80"
@@ -27,7 +27,7 @@ const Charts = () => {
           yAxisWidth={60}
         />
       </div>
-      <div className="border border-2 p-4">
+      <div className="border-2 p-4">
         <p>Purchases</p>
         <AreaChart
           className="h-80"

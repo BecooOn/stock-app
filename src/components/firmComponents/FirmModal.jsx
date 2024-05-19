@@ -8,7 +8,7 @@ import FirmModalForm, { firmSchema } from "./FirmModalForm";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import useStockRequest from "../../services/useStockRequest";
-import { modalStyle } from "../../styles/globalStyles";
+import { modalStyle, newBtn } from "../../styles/globalStyles";
 
 const FirmModal = () => {
   const [open, setOpen] = React.useState(false);
@@ -21,14 +21,7 @@ const FirmModal = () => {
       <Button
         onClick={handleOpen}
         variant="contained"
-        sx={{
-          position: "absolute",
-          top: 35,
-          left: 0,
-          "&:hover": {
-            backgroundColor: "red",
-          },
-        }}
+        sx={newBtn}
       >
         NEW FIRM
       </Button>

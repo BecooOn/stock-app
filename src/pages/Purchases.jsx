@@ -9,6 +9,7 @@ import PurchasesModal from "../components/purchasesComponents/PurchasesModal";
 import TableSkeleton, {
   NoDataMessage,
 } from "../components/DataFetchMessages";
+import { newBtn, pageHeaders } from "../styles/globalStyles";
 
 const Purchases = () => {
   const { promiseAllDatas } = useStockRequest();
@@ -57,11 +58,11 @@ const Purchases = () => {
           justifyContent: "space-between",
           alignItems: "center",
           borderBottom: "4px solid black",
-          p: 0,
+          p: 2,
         }}
       >
-        <div style={{ width: "120px" }}></div>
-        <h1 style={{ textAlign: "center" }}>Purchases</h1>
+        <div style={{ width: "120px" }}></div> {/* Responsive dizayn için gerekli olduğu ve new purchase btn bu şekilde hizalandığı için */}
+        <h1 style={pageHeaders}>Purchases</h1>
         <Box>
           <Tooltip
             title={`Number of Purchases: ${purchases ? purchases.length : 0}`}
@@ -86,14 +87,7 @@ const Purchases = () => {
       <Button
         variant="contained"
         onClick={handleOpen}
-        sx={{
-          position: "absolute",
-          top: 35,
-          left: 0,
-          "&:hover": {
-            backgroundColor: "red",
-          },
-        }}
+        sx={newBtn}
       >
         New Purchases
       </Button>

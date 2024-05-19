@@ -22,7 +22,7 @@ const Register = () => {
         rowSpacing={{ sm: 1 }}
       >
         <Grid item xs={12} mb={3} sx={{alignContent:"center"}}>
-        <Typography variant="h5" noWrap component="div" sx={{display:"flex",alignItems:"center", flexGrow: 1,gap:1,justifyContent:"center",borderBottom:"3px dotted gray",p:2 }}>
+        <Typography variant="h5" noWrap component="div" sx={{display:"flex",alignItems:"center", flexGrow: 1,gap:1,justifyContent:"center",borderBottom:"3px dotted green",p:2 }}>
             <img
               src={logo}
               alt="Logo"

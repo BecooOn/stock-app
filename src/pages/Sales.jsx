@@ -10,11 +10,12 @@ import TableSkeleton, {
   ErrorMessage,
   NoDataMessage,
 } from "../components/DataFetchMessages";
-import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import { newBtn, pageHeaders } from "../styles/globalStyles";
 
 const Sales = () => {
   const { getDatas } = useStockRequest();
-  const { sales, loading} = useSelector((state) => state.stock);
+  const { sales, loading } = useSelector((state) => state.stock);
   const [open, setOpen] = useState(false);
   const handleOpen = (sale) => {
     setInfo(sale); // Satın alma verilerini info state'ine ayarlamak için
@@ -52,18 +53,15 @@ const Sales = () => {
           justifyContent: "space-between",
           alignItems: "center",
           borderBottom: "4px solid black",
-          p: 0,
+          p: 2,
         }}
       >
         <div style={{ width: "120px" }}></div>
-        <h1 style={{ textAlign: "center" }}>Sales</h1>
+        <h1 style={pageHeaders}>Sales</h1>
         <Box>
-          <Tooltip
-            title={`Number of Sales: ${sales ? sales.length : 0}`}
-            arrow
-          >
+          <Tooltip title={`Number of Sales: ${sales ? sales.length : 0}`} arrow>
             <Box>
-              <MonetizationOnIcon sx={{width:"35px",height:"35px"}}/>
+              <MonetizationOnIcon sx={{ width: "35px", height: "35px" }} />
               <sup
                 style={{
                   color: "orange",
@@ -78,18 +76,7 @@ const Sales = () => {
         </Box>
       </Box>
 
-      <Button
-        variant="contained"
-        onClick={handleOpen}
-        sx={{
-          position: "absolute",
-          top: 35,
-          left: 0,
-          "&:hover": {
-            backgroundColor: "red",
-          },
-        }}
-      >
+      <Button variant="contained" onClick={handleOpen} sx={newBtn}>
         New Sales
       </Button>
       {loading && <TableSkeleton />}

@@ -7,6 +7,7 @@ import ProductTable from "../components//productComponents/ProductTable";
 import { Box, Tooltip } from "@mui/material";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import TableSkeleton, { ErrorMessage, NoDataMessage } from "../components/DataFetchMessages";
+import { newBtn, pageHeaders } from "../styles/globalStyles";
 
 const Products = () => {
   const { getDatas } = useStockRequest();
@@ -44,11 +45,11 @@ const Products = () => {
           justifyContent: "space-between",
           alignItems: "center",
           borderBottom: "4px solid black",
-          p: 0,
+          p: 2,
         }}
       >
         <div style={{ width: "120px" }}></div>
-        <h1 style={{ textAlign: "center" }}>Products</h1>
+        <h1 style={pageHeaders}>Products</h1>
         <Box>
           <Tooltip
             title={`Number of Products: ${products ? products.length : 0}`}
@@ -73,14 +74,7 @@ const Products = () => {
       <Button
         variant="contained"
         onClick={handleOpen}
-        sx={{
-          position: "absolute",
-          top: 35,
-          left: 0,
-          "&:hover": {
-            backgroundColor: "red",
-          },
-        }}
+        sx={newBtn}
         disabled={error}
       >
         New Product
