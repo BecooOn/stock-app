@@ -90,10 +90,18 @@ const useStockRequest = () => {
       const products = allPromise[2].data.data;
       const brands = allPromise[3].data.data;
       const categories = allPromise[4].data.data;
-      dispatch(promiseAllDatasSuccess({purchases,firms,products,brands,categories}))
+      dispatch(
+        promiseAllDatasSuccess({
+          purchases,
+          firms,
+          products,
+          brands,
+          categories,
+        })
+      );
       // console.log(allPromise[0].data.data);
     } catch (error) {
-      dispatch(fetchFail())
+      dispatch(fetchFail());
     }
   };
 

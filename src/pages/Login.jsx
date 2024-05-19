@@ -17,18 +17,18 @@ const Login = () => {
   //! Hangi durum olduğunda hangi hata mesajı gelecekse schema'da yazıyoruz. yup ile schema oluşturuyoruz
   const loginSchema = object({
     email: string()
-      .email("Geçerli bir email giriniz")
-      .required("email zorunludur"), //* required içerisine mesaj yazılmazsa otomatik mesaj oluşturur, biz burada mesaj yazdığımız için bizim mesajımız kullanıcıya gösterilecek
+      .email("Enter a valid email")
+      .required("Email is required"), //* required içerisine mesaj yazılmazsa otomatik mesaj oluşturur, biz burada mesaj yazdığımız için bizim mesajımız kullanıcıya gösterilecek
     password: string()
-      .required("Şifre zorunludur")
-      .min(8, "Şifre en az 8 karakter olmalıdır")
-      .max(16, "Şifre en fazla 16 karakter olmalıdır")
-      .matches(/\d/, "Şifre en az bir rakam içermelidir")
-      .matches(/[a-z]/, "Şifre en az bir küçük harf içermelidir")
-      .matches(/[A-Z]/, "Şifre en az bir büyük harf içermelidir")
+      .required("Password is required")
+      .min(8, "Password must be at least 8 characters")
+      .max(16, "Password must be at most 16 characters")
+      .matches(/\d/, "Password must contain at least one number")
+      .matches(/[a-z]/, "Password must contain at least one lowercase letter")
+      .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
       .matches(
         /[@$!%*?&.,]+/,
-        "Şifre en az bir özel karakter(@$!%*?&.,) içermelidir."
+        "The password must contain at least one special character(@$!%*?&.,)."
       ), //? password'de daha fazla zorunluluk olacağı için minimum karakter max karakter özel karakter vs. bunlar regex ile vd. fonksiyonlar ile buraya eklenebilir. regex'ler matches() ile eklenir. Burada ayrı ayrı matches() yaptık, bu şekilde kullanım kullanıcıyı yönlendirmek için iyidir. Validation için backend tarafında oluşturulan regex e  göre kriterler burada oluşturulur. FE ve BE aynı validasyon pateernini içermelidir
   });
   return (

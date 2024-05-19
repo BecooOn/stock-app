@@ -7,13 +7,12 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PurchasesTable from "../components/purchasesComponents/PurchasesTable";
 import PurchasesModal from "../components/purchasesComponents/PurchasesModal";
 import TableSkeleton, {
-  ErrorMessage,
   NoDataMessage,
 } from "../components/DataFetchMessages";
 
 const Purchases = () => {
-  const { getDatas, promiseAllDatas } = useStockRequest();
-  const { purchases, loading, error } = useSelector((state) => state.stock);
+  const { promiseAllDatas } = useStockRequest();
+  const { purchases, loading } = useSelector((state) => state.stock);
   const [open, setOpen] = useState(false);
   const handleOpen = (purchase) => {
     setInfo(purchase); // Satın alma verilerini info state'ine ayarlamak için
