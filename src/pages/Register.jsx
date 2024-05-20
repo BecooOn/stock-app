@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import RegisterForm, { registerSchema } from "../components/RegisterForm";
 import { Formik } from "formik";
 import useApiRequest from "../services/useApiRequest";
-import logo from "../assets/logo.png"
+import logo from "../assets/logo.png";
 
 const Register = () => {
   const { register } = useApiRequest();
@@ -21,18 +21,42 @@ const Register = () => {
         direction="row-reverse"
         rowSpacing={{ sm: 1 }}
       >
-        <Grid item xs={12} mb={3} sx={{alignContent:"center"}}>
-        <Typography variant="h5" noWrap component="div" sx={{display:"flex",alignItems:"center", flexGrow: 1,gap:1,justifyContent:"center",borderBottom:"3px dotted green",p:2 }}>
+        <Grid item xs={12} mb={3} sx={{ alignContent: "center" }}>
+          <Typography
+            variant="h5"
+            noWrap
+            component="div"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              flexGrow: 1,
+              gap: 1,
+              justifyContent: "center",
+              borderBottom: "3px solid gray",
+              p: 2,
+            }}
+          >
             <img
               src={logo}
               alt="Logo"
-              style={{ width: "80px", height: "80px", borderRadius: "50%" }}
+              style={{
+                width: "80px",
+                height: "80px",
+                borderRadius: "50%",
+                backgroundColor: "#e4cbcb",
+              }}
             />
             <span>'s INVENTORY</span>
           </Typography>
         </Grid>
 
-        <Grid item xs={12} sm={10} md={6}>
+        <Grid
+          item
+          xs={12}
+          sm={10}
+          md={4}
+          sx={{ border: "2px solid white", p: 4, backgroundColor: "#e4cbcb" }}
+        >
           <Avatar
             sx={{
               backgroundColor: "secondary.light",

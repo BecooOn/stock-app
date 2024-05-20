@@ -10,6 +10,7 @@ const UpdateUser = () => {
   let username = user;
   // console.log(username);
   const { getUser, updateUser } = useApiRequest();
+  console.log(username, email, password, firstName, lastName, _id);
   const [info, setInfo] = useState({
     username: username || "",
     email: email || "",
