@@ -116,6 +116,7 @@ SOLUTION
 │   │   └── useStockRequest.js
 │   └── styles
 │       └── globalStyle.js
+├── LICENSE
 ├── package.json
 ├── tailwind.config.js
 └── yarn.lock
