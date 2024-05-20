@@ -117,7 +117,6 @@ SOLUTION
 │   └── styles
 │       └── globalStyle.js
 ├── LICENSE
-├── netlify.toml
 ├── package.json
 ├── tailwind.config.js
 └── yarn.lock
