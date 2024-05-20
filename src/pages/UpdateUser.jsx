@@ -9,14 +9,14 @@ const UpdateUser = () => {
   );
   let username = user;
   // console.log(username);
-  const { getUser, updateUser } = useApiRequest();
-  console.log(username, email, password, firstName, lastName, _id);
+  const { getUser, updateUser, deleteUser } = useApiRequest();
+  // console.log(username, email, password, firstName, lastName, _id);
   const [info, setInfo] = useState({
     username: username || "",
     email: email || "",
     password: password || "",
     firstName: firstName || "",
-    lastName: lastName || ""
+    lastName: lastName || "",
   });
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const UpdateUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateUser(info,_id);
+    updateUser(info, _id);
   };
 
   return (
@@ -39,19 +39,28 @@ const UpdateUser = () => {
         // width: "300px",
         textAlign: "center",
         margin: "auto",
-        p:1
+        p: 1,
       }}
     >
       <Typography
-              variant="body1"
-              color="red"
-              textAlign="center"
-              sx={{my:4,fontSize:"24px"}}
-            >
-             You can add and change your informations
-            </Typography>
+        variant="body1"
+        color="red"
+        textAlign="center"
+        sx={{ my: 4, fontSize: "24px" }}
+      >
+        You can add and change your informations
+      </Typography>
       <form onSubmit={handleSubmit}>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2,border:"2px solid white",p:4,backgroundColor:"#e4cbcb" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            border: "2px solid white",
+            p: 4,
+            backgroundColor: "#e4cbcb",
+          }}
+        >
           <TextField
             label="User Name"
             name="username"
@@ -102,6 +111,18 @@ const UpdateUser = () => {
           </Button>
         </Box>
       </form>
+      <Typography
+        component="button"
+        sx={{
+          m: 3,
+          color: "gray",
+          borderBottom: "1px solid gray",
+          "&:hover": { color: "red", borderBottom: "2px solid red" },
+        }}
+        onClick={() => deleteUser(_id)}
+      >
+        Delete your account
+      </Typography>
     </Box>
   );
 };

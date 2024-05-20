@@ -131,7 +131,21 @@ const useApiRequest = () => {
     }
   };
 
-  return { login, register, logout, getUser, updateUser };
+  const deleteUser = async (_id) => {
+    dispatch(fetchStart());
+    try {
+      await axiosToken.delete(`/users/${_id}`);
+      toastSuccessNotify(`Account was deleted successfully!`);
+      getUser();
+      navigate("/");
+      // dispatch(getUserSuccess(data));
+    } catch (error) {
+      dispatch(fetchFail());
+      toastErrorNotify(`Oops! there is something wrong while deleting`);
+    }
+  };
+
+  return { login, register, logout, getUser, updateUser, deleteUser };
 };
 
 export default useApiRequest;

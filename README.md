@@ -137,11 +137,15 @@ SOLUTION
 - **Tailwind CSS**: Utility-first CSS framework for rapid UI development.
 - **MUI X Data Grid**: Powerful data grid component from Material UI.
 - **MUI X Charts**: Charting library from Material UI.
-- **@tremor/react**: React components for building dashboards and data visualizations.
+- **Tremor**: React components for building dashboards and data visualizations.
 
 ## Dev Tools
 
 - Redux DevTools: A browser extension that allows developers to inspect every action and state change in their Redux application.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/BecooOn/stock-app/blob/main/LICENSE) file for more details. 
 
 ## Contributions
 
