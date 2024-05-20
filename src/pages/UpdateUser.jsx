@@ -20,8 +20,21 @@ const UpdateUser = () => {
   });
 
   useEffect(() => {
-    getUser();
-  }, []);
+    const fetchUser = async () => {
+      const userData = await getUser(); // getUser fonksiyonunun kullanıcı bilgilerini döndürüp setter a aktarmak ve input alanlarının dolu gelmesi için.
+      if (userData) {
+        setInfo({
+          username: userData.user || "",
+          email: userData.email || "",
+          password: userData.password || "",
+          firstName: userData.firstName || "",
+          lastName: userData.lastName || "",
+        });
+      }
+    };
+
+    fetchUser();
+  }, [getUser]);
 
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
