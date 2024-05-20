@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
-// import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Modal from "@mui/material/Modal";
@@ -16,14 +14,13 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useSelector } from "react-redux";
 import { modalStyle } from "../../styles/globalStyles";
 
-
 export default function ProductModal({ handleClose, open, info, setInfo }) {
   const { createData } = useStockRequest();
-  const { products } = useSelector((state) => state.stock);
-  const uniqueCategoriesID = Array.from(new Set(products.map((product) => product?.categoryId?._id))); //? category id'lerden tekrar edenleri önlemek ve select içinde sadece bir defa görmek için
-  const uniqueBrandsID = Array.from(new Set(products.map((product) => product?.brandId?._id))); //? brand id'lerden tekrar edenleri önlemek ve select içinde sadece bir defa görmek için
+  const { products, brands, categories } = useSelector((state) => state.stock);
+  // const uniqueCategoriesID = Array.from(new Set(products.map((product) => product?.categoryId?._id))); //? category id'lerden tekrar edenleri önlemek ve select içinde sadece bir defa görmek için
+  // const uniqueBrandsID = Array.from(new Set(products.map((product) => product?.brandId?._id))); //? brand id'lerden tekrar edenleri önlemek ve select içinde sadece bir defa görmek için
 
-  // console.log(brandNames);
+  // console.log(categories);
 
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
@@ -74,16 +71,10 @@ export default function ProductModal({ handleClose, open, info, setInfo }) {
                   onChange={handleChange}
                   required
                 >
-                  {uniqueCategoriesID.map((categoryId) => {
-                    const category = products.find(
-                      (product) => product?.categoryId?._id === categoryId
-                    );
+                  {categories?.map((item) => {
                     return (
-                      <MenuItem
-                        key={category?.categoryId?._id}
-                        value={category?.categoryId?._id}
-                      >
-                        {category?.categoryId?.name}
+                      <MenuItem key={item._id} value={item._id}>
+                        {item.name}
                       </MenuItem>
                     );
                   })}
@@ -99,16 +90,10 @@ export default function ProductModal({ handleClose, open, info, setInfo }) {
                   onChange={handleChange}
                   required
                 >
-                  {uniqueBrandsID.map((brandId) => {
-                    const brand = products.find(
-                      (product) => product?.brandId?._id === brandId
-                    );
+                  {brands?.map((item) => {
                     return (
-                      <MenuItem
-                        key={brand?.brandId?._id}
-                        value={brand?.brandId?._id}
-                      >
-                        {brand?.brandId?.name}
+                      <MenuItem key={item._id} value={item._id}>
+                        {item.name}
                       </MenuItem>
                     );
                   })}

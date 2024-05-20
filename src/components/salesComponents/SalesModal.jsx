@@ -17,7 +17,7 @@ export default function SalesModal({ handleClose, open, info, setInfo }) {
     (state) => state.stock
   );
   const navigate = useNavigate();
-  console.log(sales)
+  // console.log(sales)
 
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
@@ -40,10 +40,10 @@ export default function SalesModal({ handleClose, open, info, setInfo }) {
       // console.log(information);
       updateData("sales", information);
     } else {
-      console.log(info);
+      // console.log(info);
       const { brandId, productId, quantity, price } = info;
       let information = { brandId, productId, quantity, price };
-      console.log(information);
+      // console.log(information);
       createData("sales", information);
     }
 
