@@ -7,21 +7,12 @@ const UpdateUser = () => {
   const { user, email, password, firstName, lastName, _id } = useSelector(
     (state) => state.auth
   );
-  let username = user;
-  // console.log(username);
+
   const { getUser, updateUser, deleteUser } = useApiRequest();
-  // console.log(username, email, password, firstName, lastName, _id);
-  const [info, setInfo] = useState({
-    username: username || "",
-    email: email || "",
-    password: password || "",
-    firstName: firstName || "",
-    lastName: lastName || "",
-  });
 
   useEffect(() => {
     const fetchUser = async () => {
-      const userData = await getUser(); // getUser fonksiyonunun kullanıcı bilgilerini döndürüp setter a aktarmak ve input alanlarının dolu gelmesi için.
+      const userData = await getUser();
       if (userData) {
         setInfo({
           username: userData.user || "",
@@ -36,6 +27,23 @@ const UpdateUser = () => {
     fetchUser();
   }, [getUser]);
 
+  useEffect(() => {
+    setInfo({
+      username: user || "",
+      email: email || "",
+      password: password || "",
+      firstName: firstName || "",
+      lastName: lastName || "",
+    });
+  }, [user, email, password, firstName, lastName]);
+  const [info, setInfo] = useState({
+    username: user || "",
+    email: email || "",
+    password: password || "",
+    firstName: firstName || "",
+    lastName: lastName || "",
+  });
+
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
@@ -49,7 +57,6 @@ const UpdateUser = () => {
     <Box
       sx={{
         maxWidth: "500px",
-        // width: "300px",
         textAlign: "center",
         margin: "auto",
         p: 1,
