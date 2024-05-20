@@ -13,7 +13,7 @@ const NotFound = () => {
     <Box
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
-      <Box sx={{ color: "gray", fontWeight: "bold", textAlign: "center" }}>
+      <Box sx={{ color: "gray", fontWeight: "bold", textAlign: "center",my:"80px" }}>
         <Box>
           <img src={errorImg} alt="404 Error" />
           <Typography>Page not found</Typography>

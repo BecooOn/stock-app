@@ -15,8 +15,8 @@ export const modalStyle = {
   p: 4,
 };
 export const notFoundBtnStyle = {
-  border: "2px solid orange",
-  color: "orange",
+  border: "2px solid #FF412D",
+  color: "#FF412D",
   fontWeight: "bold",
   margin: "8px 8px",
   "&:hover": {
