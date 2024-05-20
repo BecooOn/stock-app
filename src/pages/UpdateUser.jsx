@@ -35,10 +35,11 @@ const UpdateUser = () => {
   return (
     <Box
       sx={{
-        maxWidth: "650px",
-        width: "300px",
+        maxWidth: "500px",
+        // width: "300px",
         textAlign: "center",
-        margin: "auto"
+        margin: "auto",
+        p:1
       }}
     >
       <Typography
@@ -47,10 +48,10 @@ const UpdateUser = () => {
               textAlign="center"
               sx={{my:4,fontSize:"24px"}}
             >
-              Change your informations
+             You can add and change your informations
             </Typography>
       <form onSubmit={handleSubmit}>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2,border:"2px solid white",p:4,backgroundColor:"#e4cbcb" }}>
           <TextField
             label="User Name"
             name="username"

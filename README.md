@@ -62,7 +62,8 @@ SOLUTION
 │   ├── assets
 │   │   ├── data.png
 │   │   ├── loading.gif
-│   │   └── logo.png
+│   │   ├── logo.png
+│   │   └── loading.gif
 │   ├── components
 │   │   ├── brandComponents
 │   │   │   ├── BrandModal.jsx
