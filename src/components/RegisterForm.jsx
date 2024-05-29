@@ -25,7 +25,7 @@ export const registerSchema = object({
     .matches(/\d+/, "Password must contain a number")
     .matches(/[a-z]/, "Password must contain one lowercase letter")
     .matches(/[A-Z]/, "Password must contain one uppercase letter")
-    .matches(/[!/[@$!%*?&.,]+/, "The password must contain at least one special character(@$!%*?&.,)"),
+    .matches(/[!@#$%^&*(),.?":{}|<>]+/, "The password must contain at least one special character(!@#$%^&*(),.?\":{}|<>)"),
 })
 
 const RegisterForm = ({

@@ -27,8 +27,8 @@ const Login = () => {
       .matches(/[a-z]/, "Password must contain at least one lowercase letter")
       .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
       .matches(
-        /[@$!%*?&.,]+/,
-        "The password must contain at least one special character(@$!%*?&.,)."
+        /[!@#$%^&*(),.?":{}|<>]+/,
+        "The password must contain at least one special character (!@#$%^&*(),.?\":{}|<>)."
       ), //? password'de daha fazla zorunluluk olacağı için minimum karakter max karakter özel karakter vs. bunlar regex ile vd. fonksiyonlar ile buraya eklenebilir. regex'ler matches() ile eklenir. Burada ayrı ayrı matches() yaptık, bu şekilde kullanım kullanıcıyı yönlendirmek için iyidir. Validation için backend tarafında oluşturulan regex e  göre kriterler burada oluşturulur. FE ve BE aynı validasyon pateernini içermelidir
   });
   return (
@@ -140,12 +140,6 @@ const Login = () => {
             <Link to="/register">Do you have not an account?</Link>
           </Box>
         </Grid>
-
-        {/* <Grid item xs={12} sm={7} md={6} marginTop="30px">
-          <Container>
-            <img src={image} alt="img" width="100%"/>
-          </Container>
-        </Grid> */}
       </Grid>
     </Container>
   );
