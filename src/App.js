@@ -4,7 +4,7 @@ import { grey, blueGrey } from "@mui/material/colors";
 import { Provider } from "react-redux";
 import store, { persistor } from "./app/store";
 import { ToastContainer } from "react-toastify";
-import { Anta } from '@fontsource/anta'; 
+import { Anta } from "@fontsource/anta";
 import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
@@ -18,15 +18,15 @@ function App() {
       },
     },
     typography: {
-      fontFamily: 'Anta, sans-serif', 
+      fontFamily: "Anta, sans-serif",
       fontSize: 16,
-    }
+    },
   });
   return (
     <>
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+          <PersistGate loading={null} persistor={persistor}>
             <AppRouter />
           </PersistGate>
         </Provider>
